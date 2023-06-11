@@ -18,7 +18,7 @@ class RoundedButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        primary: buttonColor,
+        foregroundColor: buttonColor,
         minimumSize: const Size(88, 44),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         shape: const RoundedRectangleBorder(
@@ -29,7 +29,7 @@ class RoundedButtonWidget extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         buttonText,
-        style: Theme.of(context).textTheme.button!.copyWith(color: textColor),
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
       ),
     );
   }
