@@ -1,3 +1,5 @@
+import 'package:farmacare/data/repository.dart';
+import 'package:farmacare/di/components/service_locator.dart';
 import 'package:farmacare/stores/error/error_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:validators/validators.dart';
@@ -102,7 +104,7 @@ abstract class _FormStore with Store {
     if (value.isEmpty) {
       formErrorStore.confirmPassword = "Confirm password can't be empty";
     } else if (value != password) {
-      formErrorStore.confirmPassword = "Password doen't match";
+      formErrorStore.confirmPassword = "Password doesn't match";
     } else {
       formErrorStore.confirmPassword = null;
     }
@@ -117,17 +119,25 @@ abstract class _FormStore with Store {
   Future login() async {
     loading = true;
 
-    Future.delayed(Duration(milliseconds: 2000)).then((future) {
-      loading = false;
-      success = true;
-    }).catchError((e) {
-      loading = false;
-      success = false;
-      errorStore.errorMessage = e.toString().contains("ERROR_USER_NOT_FOUND")
-          ? "Username and password doesn't match"
-          : "Something went wrong, please check your internet connection and try again";
-      print(e);
-    });
+    success = await getIt.get<Repository>().login(userEmail, password);
+    loading = false;
+    if (success) {
+      // getIt.get<UserStore>().setUser(user);
+    } else {
+      errorStore.errorMessage = "Failed to login!";
+    }
+
+    // Future.delayed(Duration(milliseconds: 2000)).then((future) {
+    //   loading = false;
+    //   success = true;
+    // }).catchError((e) {
+    //   loading = false;
+    //   success = false;
+    //   errorStore.errorMessage = e.toString().contains("ERROR_USER_NOT_FOUND")
+    //       ? "Username and password doesn't match"
+    //       : "Something went wrong, please check your internet connection and try again";
+    //   print(e);
+    // });
   }
 
   @action

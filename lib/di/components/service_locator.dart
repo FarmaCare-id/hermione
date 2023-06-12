@@ -1,6 +1,6 @@
-
 import 'package:farmacare/data/local/datasources/post/post_datasource.dart';
 import 'package:farmacare/data/network/apis/posts/post_api.dart';
+import 'package:farmacare/data/network/apis/login/login_api.dart';
 import 'package:farmacare/data/network/dio_client.dart';
 import 'package:farmacare/data/network/rest_client.dart';
 import 'package:farmacare/data/repository.dart';
@@ -27,16 +27,20 @@ Future<void> setupLocator() async {
 
   // async singletons:----------------------------------------------------------
   getIt.registerSingletonAsync<Database>(() => LocalModule.provideDatabase());
-  getIt.registerSingletonAsync<SharedPreferences>(() => LocalModule.provideSharedPreferences());
+  getIt.registerSingletonAsync<SharedPreferences>(
+      () => LocalModule.provideSharedPreferences());
 
   // singletons:----------------------------------------------------------------
-  getIt.registerSingleton(SharedPreferenceHelper(await getIt.getAsync<SharedPreferences>()));
-  getIt.registerSingleton<Dio>(NetworkModule.provideDio(getIt<SharedPreferenceHelper>()));
+  getIt.registerSingleton(
+      SharedPreferenceHelper(await getIt.getAsync<SharedPreferences>()));
+  getIt.registerSingleton<Dio>(
+      NetworkModule.provideDio(getIt<SharedPreferenceHelper>()));
   getIt.registerSingleton(DioClient(getIt<Dio>()));
   getIt.registerSingleton(RestClient());
 
   // api's:---------------------------------------------------------------------
   getIt.registerSingleton(PostApi(getIt<DioClient>(), getIt<RestClient>()));
+  getIt.registerSingleton(LoginApi(getIt<DioClient>(), getIt<RestClient>()));
 
   // data sources
   getIt.registerSingleton(PostDataSource(await getIt.getAsync<Database>()));
@@ -44,6 +48,7 @@ Future<void> setupLocator() async {
   // repository:----------------------------------------------------------------
   getIt.registerSingleton(Repository(
     getIt<PostApi>(),
+    getIt<LoginApi>(),
     getIt<SharedPreferenceHelper>(),
     getIt<PostDataSource>(),
   ));

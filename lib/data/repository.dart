@@ -8,6 +8,7 @@ import 'package:sembast/sembast.dart';
 
 import 'local/constants/db_constants.dart';
 import 'network/apis/posts/post_api.dart';
+import 'network/apis/login/login_api.dart';
 
 class Repository {
   // data source object
@@ -15,12 +16,13 @@ class Repository {
 
   // api objects
   final PostApi _postApi;
+  final LoginApi _loginApi;
 
   // shared pref object
   final SharedPreferenceHelper _sharedPrefsHelper;
 
   // constructor
-  Repository(this._postApi, this._sharedPrefsHelper, this._postDataSource);
+  Repository(this._postApi, this._loginApi, this._sharedPrefsHelper, this._postDataSource);
 
   // Post: ---------------------------------------------------------------------
   Future<PostList> getPosts() async {
@@ -69,7 +71,19 @@ class Repository {
 
   // Login:---------------------------------------------------------------------
   Future<bool> login(String email, String password) async {
-    return await Future.delayed(Duration(seconds: 2), ()=> true);
+    return await _sharedPrefsHelper.isLoggedIn.then((isLoggedIn) {
+      if (!isLoggedIn) {
+        return _loginApi.login(email, password).then((user) {
+          // _sharedPrefsHelper.saveUser(user);
+          _sharedPrefsHelper.saveIsLoggedIn(true);
+          return true;
+        }).catchError((error) => throw error);
+      } else {
+        // TODO: throw custom exception
+        return Future.value(false);
+      }
+    });
+    // return await Future.delayed(Duration(seconds: 2), ()=> true);
   }
 
   Future<void> saveIsLoggedIn(bool value) =>
