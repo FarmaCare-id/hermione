@@ -2,21 +2,24 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/data/sharedpref/constants/preferences.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/stores/language/language_store.dart';
+import 'package:farmacare/stores/post/post_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
 import 'package:farmacare/utils/locale/app_localization.dart';
+import 'package:farmacare/widgets/progress_indicator_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:material_dialog/material_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatefulWidget {
+class PostScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _PostScreenState createState() => _PostScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _PostScreenState extends State<PostScreen> {
   //stores:---------------------------------------------------------------------
+  late PostStore _postStore;
   late ThemeStore _themeStore;
   late LanguageStore _languageStore;
 
@@ -32,6 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
     // initializing stores
     _languageStore = Provider.of<LanguageStore>(context);
     _themeStore = Provider.of<ThemeStore>(context);
+    _postStore = Provider.of<PostStore>(context);
+
+    // check to see if already called api
+    if (!_postStore.loading) {
+      _postStore.getPosts();
+    }
   }
 
   @override
@@ -45,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // app bar methods:-----------------------------------------------------------
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      title: Text("Home"),
+      title: Text(AppLocalizations.of(context).translate('home_tv_posts')),
       actions: _buildActions(context),
     );
   }
@@ -55,19 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _buildLanguageButton(),
       _buildThemeButton(),
       _buildLogoutButton(),
-      _buildBackButton(),
     ];
-  }
-
-  Widget _buildBackButton() {
-    return IconButton(
-      onPressed: () {
-        Navigator.of(context).pushReplacementNamed(Routes.login);
-      },
-      icon: Icon(
-        Icons.arrow_back,
-      ),
-    );
   }
 
   Widget _buildThemeButton() {
@@ -118,36 +115,86 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBody() {
     return Stack(
       children: <Widget>[
-        _buildMainContent(context),
+        _handleErrorMessage(),
+        _buildMainContent(),
       ],
     );
   }
 
-  Widget _buildMainContent(context) {
-    return Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Welcome to FarmaCare!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+  Widget _buildMainContent() {
+    return Observer(
+      builder: (context) {
+        return _postStore.loading
+            ? CustomProgressIndicatorWidget()
+            : Material(child: _buildListView());
+      },
+    );
+  }
+
+  Widget _buildListView() {
+    return _postStore.postList != null
+        ? ListView.separated(
+            itemCount: _postStore.postList!.posts!.length,
+            separatorBuilder: (context, position) {
+              return Divider();
+            },
+            itemBuilder: (context, position) {
+              return _buildListItem(position);
+            },
+          )
+        : Center(
+            child: Text(
+              AppLocalizations.of(context).translate('home_tv_no_post_found'),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(Routes.post);
-              },
-              child: Text('Post Page'),
-            ),
-          ],
-        ),
+          );
+  }
+
+  Widget _buildListItem(int position) {
+    return ListTile(
+      dense: true,
+      leading: Icon(Icons.cloud_circle),
+      title: Text(
+        '${_postStore.postList?.posts?[position].title}',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: false,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      subtitle: Text(
+        '${_postStore.postList?.posts?[position].body}',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: false,
       ),
     );
-  }  
+  }
+
+  Widget _handleErrorMessage() {
+    return Observer(
+      builder: (context) {
+        if (_postStore.errorStore.errorMessage.isNotEmpty) {
+          return _showErrorMessage(_postStore.errorStore.errorMessage);
+        }
+
+        return SizedBox.shrink();
+      },
+    );
+  }
+
+  // General Methods:-----------------------------------------------------------
+  _showErrorMessage(String message) {
+    Future.delayed(Duration(milliseconds: 0), () {
+      if (message.isNotEmpty) {
+        FlushbarHelper.createError(
+          message: message,
+          title: AppLocalizations.of(context).translate('home_tv_error'),
+          duration: Duration(seconds: 3),
+        )..show(context);
+      }
+    });
+
+    return SizedBox.shrink();
+  }
 
 _buildLanguageDialog() {
   _showDialog<String>(

@@ -173,7 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
   return Align(
     alignment: FractionalOffset.centerRight,
     child: TextButton(
-      onPressed: () {},
+      onPressed: () {
+        // TODO: Implement Forgot Password
+         Navigator.of(context).pushReplacementNamed(Routes.home);
+      },
       style: TextButton.styleFrom(
         padding: EdgeInsets.all(0.0),
         minimumSize: Size(0, 0),

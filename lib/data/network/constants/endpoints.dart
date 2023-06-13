@@ -3,6 +3,8 @@ import 'package:farmacare/constants/environment.dart';
 class Endpoints {
   Endpoints._();
 
+  static const String testUrl = "https://jsonplaceholder.typicode.com/posts";
+
   // base url
   static final String baseUrl = Environment.asclepiusURL;
 
