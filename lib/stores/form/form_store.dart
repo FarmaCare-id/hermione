@@ -48,7 +48,9 @@ abstract class _FormStore with Store {
 
   @computed
   bool get canLogin =>
-      !formErrorStore.hasErrorsInLogin && userEmail.isNotEmpty && password.isNotEmpty;
+      !formErrorStore.hasErrorsInLogin &&
+      userEmail.isNotEmpty &&
+      password.isNotEmpty;
 
   @computed
   bool get canRegister =>
@@ -121,8 +123,9 @@ abstract class _FormStore with Store {
 
     success = await getIt.get<Repository>().login(userEmail, password);
     loading = false;
-    if (success) {
+    if (success == true) {
       // getIt.get<UserStore>().setUser(user);
+      print("Logged in!");
     } else {
       errorStore.errorMessage = "Failed to login!";
     }

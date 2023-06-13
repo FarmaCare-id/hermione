@@ -11,23 +11,43 @@ class LoginApi {
 
   LoginApi(this._dioClient, this._restClient);
 
-  // process login
-  Future<bool> login(String email, String password) async {
-    try {
-      String url = Endpoints.login;
+  Future<dynamic> login(String email, String password) async {
+    String url = Endpoints.login;
       final res = await _dioClient.post(url, data: {
         'email': email,
         'password': password,
       });
-      
-      if (res['status'] == 'success') {
-        return true;
-      }
 
-      return false;
-    } catch (e) {
-      print(e.toString());
-      throw e;
-    }
+      if (res['status'] == 'SUCCESS') {
+        return {
+          'status': 'SUCCESS',
+          'token': res['data']['token'],
+        };
+      }
+      return {
+        'status': 'ERROR',
+        'message': res['error'],
+      };
+    // try {
+    //   String url = Endpoints.login;
+    //   final res = await _dioClient.post(url, data: {
+    //     'email': email,
+    //     'password': password,
+    //   });
+
+    //   if (res['status'] == 'SUCCESS') {
+    //     return {
+    //       'status': 'SUCCESS',
+    //       'token': res['data']['token'],
+    //     };
+    //   }
+    //   return {
+    //     'status': 'ERROR',
+    //     'message': res['error'],
+    //   };
+    // } catch (e) {
+    //   print(e.toString());
+    //   throw e;
+    // }
   }
 }

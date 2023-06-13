@@ -22,7 +22,8 @@ class Repository {
   final SharedPreferenceHelper _sharedPrefsHelper;
 
   // constructor
-  Repository(this._postApi, this._loginApi, this._sharedPrefsHelper, this._postDataSource);
+  Repository(this._postApi, this._loginApi, this._sharedPrefsHelper,
+      this._postDataSource);
 
   // Post: ---------------------------------------------------------------------
   Future<PostList> getPosts() async {
@@ -68,15 +69,19 @@ class Repository {
       .then((id) => id)
       .catchError((error) => throw error);
 
-
   // Login:---------------------------------------------------------------------
   Future<bool> login(String email, String password) async {
     return await _sharedPrefsHelper.isLoggedIn.then((isLoggedIn) {
       if (!isLoggedIn) {
-        return _loginApi.login(email, password).then((user) {
-          // _sharedPrefsHelper.saveUser(user);
-          _sharedPrefsHelper.saveIsLoggedIn(true);
-          return true;
+        return _loginApi.login(email, password).then((data) {
+          if (data['status'] == 'ERROR') {
+            throw data['message'];
+            // return false;
+          } else {
+            _sharedPrefsHelper.saveAuthToken(data['token']);
+            // return Future.value(true);
+            return true;
+          }
         }).catchError((error) => throw error);
       } else {
         // TODO: throw custom exception
