@@ -113,8 +113,11 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AppIconWidget(image: 'assets/icons/ic_appicon.png'),
-            SizedBox(height: 24.0),
+            SizedBox(
+              width: 300,
+              height: 300,
+              child: AppIconWidget(image: 'assets/icons/ic_appicon.png'),
+            ),
             _buildUserIdField(),
             _buildPasswordField(),
             _buildForgotPasswordButton(),
@@ -186,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
         style: Theme.of(context)
             .textTheme
             .bodySmall
-            ?.copyWith(color: Colors.orangeAccent),
+            ?.copyWith(color: Color.fromARGB(255, 57, 118, 187)),
       ),
     ),
   );
@@ -195,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildSignInButton() {
     return RoundedButtonWidget(
       buttonText: AppLocalizations.of(context).translate('login_btn_sign_in'),
-      buttonColor: Colors.orangeAccent,
+      buttonColor: Color.fromARGB(255, 92, 153, 26),
       textColor: Colors.white,
       onPressed: () async {
         if (_store.canLogin) {
