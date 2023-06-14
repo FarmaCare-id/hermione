@@ -2,14 +2,12 @@ import 'dart:async';
 
 import 'package:farmacare/data/network/constants/endpoints.dart';
 import 'package:farmacare/data/network/dio_client.dart';
-import 'package:farmacare/data/network/rest_client.dart';
 
 class LoginApi {
   final DioClient _dioClient;
 
-  final RestClient _restClient;
 
-  LoginApi(this._dioClient, this._restClient);
+  LoginApi(this._dioClient);
 
   Future<dynamic> login(String email, String password) async {
     String url = Endpoints.login;
