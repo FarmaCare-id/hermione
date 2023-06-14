@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/data/sharedpref/constants/preferences.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/stores/language/language_store.dart';
