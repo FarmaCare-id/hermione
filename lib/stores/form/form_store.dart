@@ -121,26 +121,28 @@ abstract class _FormStore with Store {
   Future login() async {
     loading = true;
 
-    success = await getIt.get<Repository>().login(userEmail, password);
-    loading = false;
-    if (success == true) {
-      // getIt.get<UserStore>().setUser(user);
-      print("Logged in!");
-    } else {
-      errorStore.errorMessage = "Failed to login!";
-    }
+    Future.delayed(Duration(milliseconds: 2000)).then((future) {
+      loading = false;
 
-    // Future.delayed(Duration(milliseconds: 2000)).then((future) {
-    //   loading = false;
-    //   success = true;
-    // }).catchError((e) {
-    //   loading = false;
-    //   success = false;
-    //   errorStore.errorMessage = e.toString().contains("ERROR_USER_NOT_FOUND")
-    //       ? "Username and password doesn't match"
-    //       : "Something went wrong, please check your internet connection and try again";
-    //   print(e);
-    // });
+      final future = getIt.get<Repository>().login(userEmail, password);
+      // fetchLoginFuture = Observable(future);
+
+      future.then((response) {
+        success = response;
+      }).catchError((error) {
+        success = false;
+
+        // TODO: repair error message
+        // errorStore.errorMessage = DioErrorUtil.handleError(error);
+        errorStore.errorMessage = error
+                .toString()
+                .contains("ERROR_USER_NOT_FOUND")
+            ? "Username and password doesn't match"
+            : "Something went wrong, please check your internet connection and try again";
+        print(errorStore.errorMessage);
+        print(error);
+      });
+    });
   }
 
   @action

@@ -298,12 +298,12 @@ mixin _$FormErrorStore on _FormErrorStore, Store {
   @override
   String toString() {
     return '''
-userEmail: ${userEmail},
-password: ${password},
-confirmPassword: ${confirmPassword},
-hasErrorsInLogin: ${hasErrorsInLogin},
-hasErrorsInRegister: ${hasErrorsInRegister},
-hasErrorInForgotPassword: ${hasErrorInForgotPassword}
+      userEmail: ${userEmail},
+      password: ${password},
+      confirmPassword: ${confirmPassword},
+      hasErrorsInLogin: ${hasErrorsInLogin},
+      hasErrorsInRegister: ${hasErrorsInRegister},
+      hasErrorInForgotPassword: ${hasErrorInForgotPassword}
     ''';
   }
 }

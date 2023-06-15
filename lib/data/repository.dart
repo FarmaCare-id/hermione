@@ -74,8 +74,8 @@ class Repository {
     return await _sharedPrefsHelper.isLoggedIn.then((isLoggedIn) {
       if (!isLoggedIn) {
         return _loginApi.login(email, password).then((data) {
-          if (data['status'] == 'ERROR') {
-            throw data['message'];
+          if (data['status'] == 'FAILED') {
+            throw data['error'];
             // return false;
           } else {
             _sharedPrefsHelper.saveAuthToken(data['token']);
