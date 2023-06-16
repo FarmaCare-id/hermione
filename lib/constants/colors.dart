@@ -29,6 +29,8 @@ class AppColors {
   static const Color blue600 = Color(0xFF4A6572);
   static const Color blue700 = Color(0xFF344955);
   static const Color blue800 = Color(0xFF232F34);
+  static const Color bluePeriwinkle = Color(0xFF8E97FD);
+  static const Color bluePeriwinkleDark = Color.fromARGB(255, 153, 159, 230);
 
   static const Color orange300 = Color(0xFFFBD790);
   static const Color orange400 = Color(0xFFF9BE64);

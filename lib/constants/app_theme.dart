@@ -20,6 +20,7 @@
 /// `import 'path/to/theme.dart';`
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:farmacare/constants/colors.dart';
 
 class AppThemeData {
   static const _lightFillColor = Colors.black;
@@ -60,8 +61,8 @@ class AppThemeData {
   }
 
   static const ColorScheme lightColorScheme = ColorScheme(
-    primary: Color(0xFFd21e1d),
-    primaryContainer: Color(0xFF9e1718),
+    primary: AppColors.bluePeriwinkle,
+    primaryContainer: Color.fromARGB(255, 34, 173, 59),
     secondary: Color(0xFFEFF3F3),
     secondaryContainer: Color(0xFFFAFBFB),
     background: Color(0xFFE6EBEB),
@@ -76,7 +77,7 @@ class AppThemeData {
   );
 
   static const ColorScheme darkColorScheme = ColorScheme(
-    primary: Color(0xFFFF8383),
+    primary: AppColors.bluePeriwinkleDark,
     primaryContainer: Color(0xFF1CDEC9),
     secondary: Color(0xFF4D1F7C),
     secondaryContainer: Color(0xFF451B6F),
