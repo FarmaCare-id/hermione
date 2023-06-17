@@ -7,7 +7,7 @@ import 'package:farmacare/stores/post/post_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
 import 'package:farmacare/stores/user/user_store.dart';
 import 'package:farmacare/ui/home/home.dart';
-import 'package:farmacare/ui/login/login.dart';
+import 'package:farmacare/ui/landing/landing.dart';
 import 'package:farmacare/utils/locale/app_localization.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
               // Built-in localization of basic text for Cupertino widgets
               GlobalCupertinoLocalizations.delegate,
             ],
-            home: _userStore.isLoggedIn ? HomeScreen() : LoginScreen(),
+            home: _userStore.isLoggedIn ? HomeScreen() : LandingScreen(),
           );
         },
       ),
