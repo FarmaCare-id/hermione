@@ -50,41 +50,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return <Widget>[
       // _buildLanguageButton(),
       // _buildThemeButton(),
-      _buildBackButton(),
     ];
   }
 
-  Widget _buildBackButton() {
-    return IconButton(
-      onPressed: () {
-        Navigator.of(context).pushReplacementNamed(Routes.login);
-      },
-      icon: Icon(
-        Icons.arrow_back,
-      ),
-    );
-  }
 
   // body methods:---------------------------------------------------------------
   Widget _buildBody() {
     return Stack(
       children: <Widget>[
-        _buildBackground(),
+        // _buildBackground(),
         _buildContent(),
       ],
     );
   }
 
-  Widget _buildBackground() {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/register_background.png"),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
+  // Widget _buildBackground() {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       image: DecorationImage(
+  //         image: AssetImage("assets/images/register_background.png"),
+  //         fit: BoxFit.cover,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildContent() {
     return Center(

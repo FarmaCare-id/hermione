@@ -126,11 +126,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-          // SizedBox(
-          //   width: 300,
-          //   height: 300,
-          //   child: AppIconWidget(image: 'assets/icons/ic_appicon.png'),
-          // ),
+            // SizedBox(
+            //   width: 300,
+            //   height: 300,
+            //   child: AppIconWidget(image: 'assets/icons/ic_appicon.png'),
+            // ),
             _buildSignInGoogle(),
             SizedBox(height: 24),
             Text(
@@ -155,129 +155,131 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildSignInGoogle() {
-  return Container(
-    width: 300,
-    height: 70,
-    child: ElevatedButton(
-      onPressed: () {
-        // TODO: Handle sign in with Google logic
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.blue50,
-        foregroundColor: AppColors.black800,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-          side: BorderSide(color: AppColors.bluePeriwinkleDark, width: 1),
+    return Container(
+      width: 300,
+      height: 70,
+      child: ElevatedButton(
+        onPressed: () {
+          // TODO: Handle sign in with Google logic
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.blue50,
+          foregroundColor: AppColors.black800,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+            side: BorderSide(color: AppColors.bluePeriwinkleDark, width: 1),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            AppIconWidget(image: 'assets/icons/icons8-google-48.png'),
+            SizedBox(width: 18),
+            Text(
+              'Continue with Google',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          AppIconWidget(image: 'assets/icons/icons8-google-48.png'),
-          SizedBox(width: 18),
-          Text(
-            'Continue with Google',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-
+    );
+  }
 
   Widget _buildAuthenticationForm() {
-  return Column(
-    children: [
-      _buildUserIdField(),
-      SizedBox(height: 16), // Add desired vertical spacing here
-      _buildPasswordField(),
-    ],
-  );
-}
+    return Column(
+      children: [
+        _buildUserIdField(),
+        SizedBox(height: 16), // Add desired vertical spacing here
+        _buildPasswordField(),
+      ],
+    );
+  }
 
   Widget _buildUserIdField() {
-  return Observer(
-    builder: (context) {
-      return TextField(
-        decoration: InputDecoration(
-          hintText: AppLocalizations.of(context).translate('login_et_user_email'),
-          prefixIcon: Icon(Icons.person, color: _themeStore.darkMode ? Colors.white70 : Colors.black54),
-          filled: true,
-          fillColor: Colors.grey[300],
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
+    return Observer(
+      builder: (context) {
+        return TextField(
+          decoration: InputDecoration(
+            hintText:
+                AppLocalizations.of(context).translate('login_et_user_email'),
+            prefixIcon: Icon(Icons.person,
+                color: _themeStore.darkMode ? Colors.white70 : Colors.black54),
+            filled: true,
+            fillColor: Colors.grey[300],
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
+            errorText: _store.formErrorStore.userEmail,
           ),
-          errorText: _store.formErrorStore.userEmail,
-        ),
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.next,
-        controller: _userEmailController,
-        autofocus: false,
-        onChanged: (value) {
-          _store.setUserId(_userEmailController.text);
-        },
-        onSubmitted: (value) {
-          FocusScope.of(context).requestFocus(_passwordFocusNode);
-        },
-      );
-    },
-  );
-}
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          controller: _userEmailController,
+          autofocus: false,
+          onChanged: (value) {
+            _store.setUserId(_userEmailController.text);
+          },
+          onSubmitted: (value) {
+            FocusScope.of(context).requestFocus(_passwordFocusNode);
+          },
+        );
+      },
+    );
+  }
 
   Widget _buildPasswordField() {
-  return Observer(
-    builder: (context) {
-      return TextField(
-        decoration: InputDecoration(
-          hintText: AppLocalizations.of(context).translate('login_et_user_password'),
-          prefixIcon: Icon(Icons.lock, color: _themeStore.darkMode ? Colors.white70 : Colors.black54),
-          filled: true,
-          fillColor: Colors.grey[300],
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
+    return Observer(
+      builder: (context) {
+        return TextField(
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)
+                .translate('login_et_user_password'),
+            prefixIcon: Icon(Icons.lock,
+                color: _themeStore.darkMode ? Colors.white70 : Colors.black54),
+            filled: true,
+            fillColor: Colors.grey[300],
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
+            errorText: _store.formErrorStore.password,
           ),
-          errorText: _store.formErrorStore.password,
-        ),
-        obscureText: true,
-        controller: _passwordController,
-        focusNode: _passwordFocusNode,
-        onChanged: (value) {
-          _store.setPassword(_passwordController.text);
-        },
-      );
-    },
-  );
-}
+          obscureText: true,
+          controller: _passwordController,
+          focusNode: _passwordFocusNode,
+          onChanged: (value) {
+            _store.setPassword(_passwordController.text);
+          },
+        );
+      },
+    );
+  }
 
   Widget _buildForgotPasswordButton() {
-  return Align(
-    alignment: FractionalOffset.center,
-    child: TextButton(
-      onPressed: () {
-        // TODO: Implement Forgot Password
-         Navigator.of(context).pushReplacementNamed(Routes.home);
-      },
-      style: TextButton.styleFrom(
-        padding: EdgeInsets.all(32),
-        minimumSize: Size(0, 0),
+    return Align(
+      alignment: FractionalOffset.center,
+      child: TextButton(
+        onPressed: () {
+          // TODO: Implement Forgot Password
+          Navigator.of(context).pushReplacementNamed(Routes.home);
+        },
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.all(32),
+          minimumSize: Size(0, 0),
+        ),
+        child: Text(
+          AppLocalizations.of(context).translate('login_btn_forgot_password'),
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: AppColors.greyLabel),
+        ),
       ),
-      child: Text(
-        AppLocalizations.of(context).translate('login_btn_forgot_password'),
-        style: Theme.of(context)
-            .textTheme
-            .bodySmall
-            ?.copyWith(color: AppColors.greyLabel),
-      ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildSignInButton() {
     return Container(
@@ -323,33 +325,33 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildSignUpButton() {
-  return Padding(
-    padding: EdgeInsetsDirectional.only(top: 24),
-    child: Center(
-      child: Text.rich(
-        TextSpan(
-          text: "Doesn't have an account? ",
-          style: TextStyle(fontSize: 16, color: Colors.black),
-          children: [
-            TextSpan(
-              text: 'Sign up',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.blue,
-                fontWeight: FontWeight.bold,
+    return Padding(
+      padding: EdgeInsetsDirectional.only(top: 24),
+      child: Center(
+        child: Text.rich(
+          TextSpan(
+            text: "Doesn't have an account? ",
+            style: TextStyle(fontSize: 16, color: Colors.black),
+            children: [
+              TextSpan(
+                text: 'Sign up',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    // TODO: Handle sign up route
+                    Navigator.pushNamed(context, Routes.register);
+                  },
               ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  // TODO: Handle sign up route
-                },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   Widget navigate(BuildContext context) {
     SharedPreferences.getInstance().then((prefs) {
