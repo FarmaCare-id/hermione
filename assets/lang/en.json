@@ -2,6 +2,7 @@
   "login_start": "Below are list of strings for login",
   "login_et_user_email": "Enter user email",
   "login_et_user_password": "Enter password",
+  "login_et_user_repeat_password": "Repeat password",
   "login_btn_forgot_password": "Forgot Password?",
   "login_btn_sign_in": "Sign In",
   "login_btn_sign_up": "Sign Up",

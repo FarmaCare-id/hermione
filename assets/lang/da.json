@@ -2,6 +2,7 @@
   "login_start": "Below are list of strings for login da ",
   "login_et_user_email": "Brugernavn",
   "login_et_user_password": "Adgangskode",
+  "login_et_user_repeat_password": "Gentag adgangskode",
   "login_btn_forgot_password": "Glemt adgangskode?",
   "login_btn_sign_in": "Log ind",
   "login_btn_sign_up": "Opret bruger",
