@@ -9,11 +9,17 @@
   "login_error_fill_fields": "Please fill in all fields",
   "login_end": "------------------------------------------------------------------------------------",
 
+  "signup_start": "Below are list of strings for signup",
+  "signup_role_select": "Who are you?",
+  "signup_role_select_desc": "Hey there! We're glad you're here. Just a quick question. Are you a healthcare worker, or simply a regular user enjoying our app?",
+
   "home_start": "Below are list of strings for home",
   "home_tv_posts": "Posts",
   "home_tv_error": "Error",
   "home_tv_no_post_found": "No posts found",
   "home_tv_choose_language": "Choose Language",
-  "home_end": "-------------------------------------------------------------------------------------"
+  "home_end": "-------------------------------------------------------------------------------------",
 
+  "common_start": "Below are list of common strings",
+  "common_next": "Next"
 }
