@@ -26,7 +26,11 @@ abstract class _FormStore with Store {
     _disposers = [
       reaction((_) => userEmail, validateUserEmail),
       reaction((_) => password, validatePassword),
-      reaction((_) => confirmPassword, validateConfirmPassword)
+      reaction((_) => confirmPassword, validateConfirmPassword),
+      reaction((_) => role, validateRole),
+      reaction((_) => firstName, validateFirstName),
+      reaction((_) => lastName, validateLastName),
+      reaction((_) => profession, validateProfession),
     ];
   }
 
@@ -39,6 +43,18 @@ abstract class _FormStore with Store {
 
   @observable
   String confirmPassword = '';
+
+  @observable
+  String role = '';
+
+  @observable
+  String firstName = '';
+
+  @observable
+  String lastName = '';
+
+  @observable
+  String profession = '';
 
   @observable
   bool success = false;
@@ -60,6 +76,20 @@ abstract class _FormStore with Store {
       confirmPassword.isNotEmpty;
 
   @computed
+  bool get canSubmitRole =>
+      !formErrorStore.hasErrorsInRoleInput && role.isNotEmpty;
+
+  @computed
+  bool get canSubmitName =>
+      !formErrorStore.hasErrorsInNameInput &&
+      firstName.isNotEmpty &&
+      lastName.isNotEmpty;
+
+  @computed
+  bool get canSubmitProfession =>
+      !formErrorStore.hasErrorsInProfessionInput && profession.isNotEmpty;
+
+  @computed
   bool get canForgetPassword =>
       !formErrorStore.hasErrorInForgotPassword && userEmail.isNotEmpty;
 
@@ -77,6 +107,26 @@ abstract class _FormStore with Store {
   @action
   void setConfirmPassword(String value) {
     confirmPassword = value;
+  }
+
+  @action
+  void setRole(String value) {
+    role = value;
+  }
+
+  @action
+  void setFirstnName(String value) {
+    firstName = value;
+  }
+
+  @action
+  void setLastName(String value) {
+    lastName = value;
+  }
+
+  @action
+  void setProfession(String value) {
+    profession = value;
   }
 
   @action
@@ -109,6 +159,42 @@ abstract class _FormStore with Store {
       formErrorStore.confirmPassword = "Password doesn't match";
     } else {
       formErrorStore.confirmPassword = null;
+    }
+  }
+
+  @action
+  void validateRole(String value) {
+    if (value.isEmpty) {
+      formErrorStore.role = "Role can't be empty";
+    } else {
+      formErrorStore.role = null;
+    }
+  }
+
+  @action
+  void validateFirstName(String value) {
+    if (value.isEmpty) {
+      formErrorStore.firstName = "First name can't be empty";
+    } else {
+      formErrorStore.firstName = null;
+    }
+  }
+
+  @action
+  void validateLastName(String value) {
+    if (value.isEmpty) {
+      formErrorStore.lastName = "Last name can't be empty";
+    } else {
+      formErrorStore.lastName = null;
+    }
+  }
+
+  @action
+  void validateProfession(String value) {
+    if (value.isEmpty) {
+      formErrorStore.profession = "Profession can't be empty";
+    } else {
+      formErrorStore.profession = null;
     }
   }
 
@@ -180,6 +266,18 @@ abstract class _FormErrorStore with Store {
   @observable
   String? confirmPassword;
 
+  @observable
+  String? role;
+
+  @observable
+  String? firstName;
+
+  @observable
+  String? lastName;
+
+  @observable
+  String? profession;
+
   @computed
   bool get hasErrorsInLogin => userEmail != null || password != null;
 
@@ -189,4 +287,13 @@ abstract class _FormErrorStore with Store {
 
   @computed
   bool get hasErrorInForgotPassword => userEmail != null;
+
+  @computed
+  bool get hasErrorsInRoleInput => role != null;
+
+  @computed
+  bool get hasErrorsInNameInput => firstName != null || lastName != null;
+
+  @computed
+  bool get hasErrorsInProfessionInput => profession != null;
 }
