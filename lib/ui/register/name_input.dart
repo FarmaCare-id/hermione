@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
@@ -23,9 +24,15 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
   late ThemeStore _themeStore;
   final _store = FormStore();
 
+  // Focus nodes:--------------------------------------------------------------
+  late FocusNode _firstNameFocusNode;
+  late FocusNode _lastNameFocusNode;
+
   @override
   void initState() {
     super.initState();
+    _firstNameFocusNode = FocusNode();
+    _lastNameFocusNode = FocusNode();
   }
 
   @override
@@ -46,7 +53,6 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
   Widget _buildBody() {
     return Material(
       child: Stack(
-        // padding: EdgeInsets.all(16),
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(32.0),
@@ -69,7 +75,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
                 _buildFirstNameField(),
                 SizedBox(height: 8),
                 _buildLastNameField(),
-                SizedBox(height: 256),
+                SizedBox(height: 360),
                 _buildNextButton(),
               ],
             ),
@@ -97,6 +103,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
       builder: (context) {
         return TextField(
           decoration: InputDecoration(
+            labelText: 'First Name',
             hintText: 'First Name',
             filled: true,
             fillColor: Colors.grey[300],
@@ -111,10 +118,10 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
           controller: _firstNameController,
           autofocus: false,
           onChanged: (value) {
-            _store.setUserId(_firstNameController.text);
+            _store.setFirstName(_firstNameController.text);
           },
           onSubmitted: (value) {
-            // FocusScope.of(context).requestFocus(_passwordFocusNode);
+            FocusScope.of(context).nextFocus();
           },
         );
       },
@@ -126,6 +133,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
       builder: (context) {
         return TextField(
           decoration: InputDecoration(
+            labelText: 'Last Name',
             hintText: 'Last Name',
             filled: true,
             fillColor: Colors.grey[300],
@@ -136,14 +144,14 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
             errorText: _store.formErrorStore.lastName,
           ),
           keyboardType: TextInputType.name,
-          textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.done,
           controller: _lastNameController,
           autofocus: false,
           onChanged: (value) {
             _store.setLastName(_lastNameController.text);
           },
           onSubmitted: (value) {
-            // FocusScope.of(context).requestFocus(_passwordFocusNode);
+            FocusScope.of(context).unfocus();
           },
         );
       },
@@ -177,53 +185,33 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
   }
 
   Widget navigate(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushNamed(context, Routes.nameInput);
+    // SharedPreferences.getInstance().then((prefs) {
+    //   prefs.setBool(Preferences.is_logged_in, true);
+    // });
+
+    Future.delayed(Duration(milliseconds: 0), () {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          Routes.home, (Route<dynamic> route) => false);
     });
-    return Container(
-      color: Colors.black54,
-      child: Center(
-        child: Card(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Success!',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+
+    return Container();
   }
 
   // General Methods:-----------------------------------------------------------
   _showErrorMessage(String message) {
     if (message.isNotEmpty) {
-      return Container(
-        color: Colors.black54,
-        child: Center(
-          child: Card(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                message,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    } else {
-      return SizedBox.shrink();
+      Future.delayed(Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: AppLocalizations.of(context).translate('home_tv_error'),
+            duration: Duration(seconds: 3),
+          )..show(context);
+        }
+      });
     }
+
+    return SizedBox.shrink();
   }
 
   @override
