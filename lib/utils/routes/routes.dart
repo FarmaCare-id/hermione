@@ -3,7 +3,7 @@ import 'package:farmacare/ui/login/login.dart';
 import 'package:farmacare/ui/register/register.dart';
 import 'package:farmacare/ui/register/role_select.dart';
 import 'package:farmacare/ui/register/name_input.dart';
-import 'package:farmacare/ui/register/profession_input.dart';
+import 'package:farmacare/ui/register/profession_select.dart';
 import 'package:farmacare/ui/register/profession_verif.dart';
 import 'package:farmacare/ui/landing/landing.dart';
 import 'package:farmacare/ui/splash/splash.dart';

@@ -115,7 +115,7 @@ abstract class _FormStore with Store {
   }
 
   @action
-  void setFirstnName(String value) {
+  void setFirstName(String value) {
     firstName = value;
   }
 

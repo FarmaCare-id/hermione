@@ -170,7 +170,7 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.nameInput);
+          Navigator.pushNamed(context, Routes.professionVerif);
         },
         child: Text(
           AppLocalizations.of(context).translate('common_next'),

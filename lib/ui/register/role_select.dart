@@ -26,7 +26,7 @@ class _RoleScreenState extends State<RoleScreen> {
   }
 
   @override
-  void didChangeDepencencies() {
+  void didChangeDependencies() {
     super.didChangeDependencies();
     _themeStore = Provider.of<ThemeStore>(context);
   }
