@@ -12,6 +12,8 @@
   "signup_start": "Below are list of strings for signup",
   "signup_role_select": "Who are you?",
   "signup_role_select_desc": "Hey there! We're glad you're here. Just a quick question. Are you a healthcare worker, or simply a regular user enjoying our app?",
+  "signup_profession_verif_desc": "To ensure the highest quality experience, we kindly request you to provide your medical license number. Don't worry, we keep your information secure and confidential.",
+  "signup_modal_confirm_desc": "Hey there! Before we proceed, make sure all the information you've entered is correct. We want to make sure everything is accurate for a smooth registration process. Thanks!",
 
   "home_start": "Below are list of strings for home",
   "home_tv_posts": "Posts",

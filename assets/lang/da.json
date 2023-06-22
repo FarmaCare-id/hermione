@@ -12,6 +12,8 @@
   "signup_start": "Below are list of strings for signup da",
   "signup_role_select": "Hvem er du?",
   "signup_role_select_desc": "Hej med dig! Vi er glade for, at du er her. Bare et hurtigt spørgsmål. Er du sundhedsmedarbejder, eller bare en almindelig bruger, der nyder vores app?",
+  "signup_profession_verif_desc": "For at sikre oplevelsen af højeste kvalitet beder vi dig venligst oplyse dit medicinske licensnummer. Bare rolig, vi holder dine oplysninger sikre og fortrolige.",
+  "signup_modal_confirm_desc": "Hej med dig! Før vi fortsætter, skal du sørge for, at alle de oplysninger, du har indtastet, er korrekte. Vi ønsker at sikre, at alt er nøjagtigt for en smidig registreringsproces. Tak!",
 
   "home_start": "Below are list of strings for home",
   "home_tv_posts": "Indlæg",

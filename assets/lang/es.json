@@ -12,6 +12,8 @@
   "signup_start": "Below are list of strings for signup",
   "signup_role_select": "¿Quién eres?",
   "signup_role_select_desc": "¡Hola! Estamos contentos de que estén aquí. Sólo una pregunta rápida. ¿Eres un trabajador de la salud o simplemente un usuario habitual que disfruta de nuestra aplicación?",
+  "signup_profession_verif_desc": "Para garantizar una experiencia de la más alta calidad, le solicitamos amablemente que proporcione su número de licencia médica. No se preocupe, mantenemos su información segura y confidencial.",
+  "signup_modal_confirm_desc": "¡Hola! Antes de continuar, asegúrese de que toda la información que ingresó sea correcta. Queremos asegurarnos de que todo sea preciso para un proceso de registro sin problemas. ¡Gracias!",
 
   "home_start": "Below are list of strings for home",
   "home_tv_posts": "Publicaciones",
