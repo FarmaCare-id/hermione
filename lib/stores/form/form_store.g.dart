@@ -43,6 +43,13 @@ mixin _$FormStore on _FormStore, Store {
           Computed<bool>(() => super.canSubmitProfession,
               name: '_FormStore.canSubmitProfession'))
       .value;
+  Computed<bool>? _$canSubmitLicenseNumberComputed;
+
+  @override
+  bool get canSubmitLicenseNumber => (_$canSubmitLicenseNumberComputed ??=
+          Computed<bool>(() => super.canSubmitLicenseNumber,
+              name: '_FormStore.canSubmitLicenseNumber'))
+      .value;
   Computed<bool>? _$canForgetPasswordComputed;
 
   @override
@@ -159,6 +166,22 @@ mixin _$FormStore on _FormStore, Store {
   set profession(String value) {
     _$professionAtom.reportWrite(value, super.profession, () {
       super.profession = value;
+    });
+  }
+
+  late final _$licenseNumberAtom =
+      Atom(name: '_FormStore.licenseNumber', context: context);
+
+  @override
+  String get licenseNumber {
+    _$licenseNumberAtom.reportRead();
+    return super.licenseNumber;
+  }
+
+  @override
+  set licenseNumber(String value) {
+    _$licenseNumberAtom.reportWrite(value, super.licenseNumber, () {
+      super.licenseNumber = value;
     });
   }
 
@@ -305,6 +328,17 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   @override
+  void setLicenseNumber(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.setLicenseNumber');
+    try {
+      return super.setLicenseNumber(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void validateUserEmail(String value) {
     final _$actionInfo = _$_FormStoreActionController.startAction(
         name: '_FormStore.validateUserEmail');
@@ -382,6 +416,17 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   @override
+  void validateLicenseNumber(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.validateLicenseNumber');
+    try {
+      return super.validateLicenseNumber(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 userEmail: ${userEmail},
@@ -391,6 +436,7 @@ role: ${role},
 firstName: ${firstName},
 lastName: ${lastName},
 profession: ${profession},
+licenseNumber: ${licenseNumber},
 success: ${success},
 loading: ${loading},
 canLogin: ${canLogin},
@@ -398,6 +444,7 @@ canRegister: ${canRegister},
 canSubmitRole: ${canSubmitRole},
 canSubmitName: ${canSubmitName},
 canSubmitProfession: ${canSubmitProfession},
+canSubmitLicenseNumber: ${canSubmitLicenseNumber},
 canForgetPassword: ${canForgetPassword}
     ''';
   }
@@ -446,6 +493,14 @@ mixin _$FormErrorStore on _FormErrorStore, Store {
       (_$hasErrorsInProfessionInputComputed ??= Computed<bool>(
               () => super.hasErrorsInProfessionInput,
               name: '_FormErrorStore.hasErrorsInProfessionInput'))
+          .value;
+  Computed<bool>? _$hasErrorsInLicenseNumberInputComputed;
+
+  @override
+  bool get hasErrorsInLicenseNumberInput =>
+      (_$hasErrorsInLicenseNumberInputComputed ??= Computed<bool>(
+              () => super.hasErrorsInLicenseNumberInput,
+              name: '_FormErrorStore.hasErrorsInLicenseNumberInput'))
           .value;
 
   late final _$userEmailAtom =
@@ -559,6 +614,22 @@ mixin _$FormErrorStore on _FormErrorStore, Store {
     });
   }
 
+  late final _$licenseNumberAtom =
+      Atom(name: '_FormErrorStore.licenseNumber', context: context);
+
+  @override
+  String? get licenseNumber {
+    _$licenseNumberAtom.reportRead();
+    return super.licenseNumber;
+  }
+
+  @override
+  set licenseNumber(String? value) {
+    _$licenseNumberAtom.reportWrite(value, super.licenseNumber, () {
+      super.licenseNumber = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
@@ -569,12 +640,14 @@ role: ${role},
 firstName: ${firstName},
 lastName: ${lastName},
 profession: ${profession},
+licenseNumber: ${licenseNumber},
 hasErrorsInLogin: ${hasErrorsInLogin},
 hasErrorsInRegister: ${hasErrorsInRegister},
 hasErrorInForgotPassword: ${hasErrorInForgotPassword},
 hasErrorsInRoleInput: ${hasErrorsInRoleInput},
 hasErrorsInNameInput: ${hasErrorsInNameInput},
-hasErrorsInProfessionInput: ${hasErrorsInProfessionInput}
+hasErrorsInProfessionInput: ${hasErrorsInProfessionInput},
+hasErrorsInLicenseNumberInput: ${hasErrorsInLicenseNumberInput}
     ''';
   }
 }

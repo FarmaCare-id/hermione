@@ -31,6 +31,7 @@ abstract class _FormStore with Store {
       reaction((_) => firstName, validateFirstName),
       reaction((_) => lastName, validateLastName),
       reaction((_) => profession, validateProfession),
+      reaction((_) => licenseNumber, validateLicenseNumber),
     ];
   }
 
@@ -55,6 +56,9 @@ abstract class _FormStore with Store {
 
   @observable
   String profession = '';
+
+  @observable
+  String licenseNumber = '';
 
   @observable
   bool success = false;
@@ -88,6 +92,11 @@ abstract class _FormStore with Store {
   @computed
   bool get canSubmitProfession =>
       !formErrorStore.hasErrorsInProfessionInput && profession.isNotEmpty;
+
+  @computed
+  bool get canSubmitLicenseNumber =>
+      !formErrorStore.hasErrorsInLicenseNumberInput &&
+      licenseNumber.isNotEmpty;
 
   @computed
   bool get canForgetPassword =>
@@ -127,6 +136,11 @@ abstract class _FormStore with Store {
   @action
   void setProfession(String value) {
     profession = value;
+  }
+
+  @action
+  void setLicenseNumber(String value) {
+    licenseNumber = value;
   }
 
   @action
@@ -195,6 +209,16 @@ abstract class _FormStore with Store {
       formErrorStore.profession = "Profession can't be empty";
     } else {
       formErrorStore.profession = null;
+    }
+  }
+
+  // TODO: validate license number that it is unique
+  @action
+  void validateLicenseNumber(String value) {
+    if (value.isEmpty) {
+      formErrorStore.licenseNumber = "License number can't be empty";
+    } else {
+      formErrorStore.licenseNumber = null;
     }
   }
 
@@ -278,6 +302,9 @@ abstract class _FormErrorStore with Store {
   @observable
   String? profession;
 
+  @observable
+  String? licenseNumber;
+
   @computed
   bool get hasErrorsInLogin => userEmail != null || password != null;
 
@@ -296,4 +323,7 @@ abstract class _FormErrorStore with Store {
 
   @computed
   bool get hasErrorsInProfessionInput => profession != null;
+
+  @computed
+  bool get hasErrorsInLicenseNumberInput => licenseNumber != null;
 }
