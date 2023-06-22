@@ -59,7 +59,6 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
           Padding(
             padding: const EdgeInsets.only(left: 24, right: 24),
             child: Text(
-              // 'We need to know your profession to provide you with the best experience.',
               'Before we get started, could you please tell us if you are a doctor or an apothecary?',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -69,7 +68,7 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
               ),
             ),
           ),
-          SizedBox(height: 64),
+          SizedBox(height: 128),
           Center(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,7 +77,7 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
               _buildApothecaryButton(),
             ],
           ),
-          SizedBox(height: 32),
+          SizedBox(height: 64),
           _buildNextButton(),
         ],
       ),

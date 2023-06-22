@@ -264,7 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextButton(
         onPressed: () {
           // TODO: Implement Forgot Password
-          Navigator.of(context).pushReplacementNamed(Routes.home);
+          Navigator.pushNamed(context, Routes.home);
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.all(32),
