@@ -74,10 +74,10 @@ mixin _$PostStore on _PostStore, Store {
   @override
   String toString() {
     return '''
-      fetchPostsFuture: ${fetchPostsFuture},
-      postList: ${postList},
-      success: ${success},
-      loading: ${loading}
+fetchPostsFuture: ${fetchPostsFuture},
+postList: ${postList},
+success: ${success},
+loading: ${loading}
     ''';
   }
 }

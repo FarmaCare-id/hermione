@@ -22,6 +22,27 @@ mixin _$FormStore on _FormStore, Store {
       (_$canRegisterComputed ??= Computed<bool>(() => super.canRegister,
               name: '_FormStore.canRegister'))
           .value;
+  Computed<bool>? _$canSubmitRoleComputed;
+
+  @override
+  bool get canSubmitRole =>
+      (_$canSubmitRoleComputed ??= Computed<bool>(() => super.canSubmitRole,
+              name: '_FormStore.canSubmitRole'))
+          .value;
+  Computed<bool>? _$canSubmitNameComputed;
+
+  @override
+  bool get canSubmitName =>
+      (_$canSubmitNameComputed ??= Computed<bool>(() => super.canSubmitName,
+              name: '_FormStore.canSubmitName'))
+          .value;
+  Computed<bool>? _$canSubmitProfessionComputed;
+
+  @override
+  bool get canSubmitProfession => (_$canSubmitProfessionComputed ??=
+          Computed<bool>(() => super.canSubmitProfession,
+              name: '_FormStore.canSubmitProfession'))
+      .value;
   Computed<bool>? _$canForgetPasswordComputed;
 
   @override
@@ -75,6 +96,69 @@ mixin _$FormStore on _FormStore, Store {
   set confirmPassword(String value) {
     _$confirmPasswordAtom.reportWrite(value, super.confirmPassword, () {
       super.confirmPassword = value;
+    });
+  }
+
+  late final _$roleAtom = Atom(name: '_FormStore.role', context: context);
+
+  @override
+  String get role {
+    _$roleAtom.reportRead();
+    return super.role;
+  }
+
+  @override
+  set role(String value) {
+    _$roleAtom.reportWrite(value, super.role, () {
+      super.role = value;
+    });
+  }
+
+  late final _$firstNameAtom =
+      Atom(name: '_FormStore.firstName', context: context);
+
+  @override
+  String get firstName {
+    _$firstNameAtom.reportRead();
+    return super.firstName;
+  }
+
+  @override
+  set firstName(String value) {
+    _$firstNameAtom.reportWrite(value, super.firstName, () {
+      super.firstName = value;
+    });
+  }
+
+  late final _$lastNameAtom =
+      Atom(name: '_FormStore.lastName', context: context);
+
+  @override
+  String get lastName {
+    _$lastNameAtom.reportRead();
+    return super.lastName;
+  }
+
+  @override
+  set lastName(String value) {
+    _$lastNameAtom.reportWrite(value, super.lastName, () {
+      super.lastName = value;
+    });
+  }
+
+  late final _$professionAtom =
+      Atom(name: '_FormStore.profession', context: context);
+
+  @override
+  String get profession {
+    _$professionAtom.reportRead();
+    return super.profession;
+  }
+
+  @override
+  set profession(String value) {
+    _$professionAtom.reportWrite(value, super.profession, () {
+      super.profession = value;
     });
   }
 
@@ -177,6 +261,50 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   @override
+  void setRole(String value) {
+    final _$actionInfo =
+        _$_FormStoreActionController.startAction(name: '_FormStore.setRole');
+    try {
+      return super.setRole(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setFirstName(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.setFirstName');
+    try {
+      return super.setFirstName(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setLastName(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.setLastName');
+    try {
+      return super.setLastName(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setProfession(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.setProfession');
+    try {
+      return super.setProfession(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void validateUserEmail(String value) {
     final _$actionInfo = _$_FormStoreActionController.startAction(
         name: '_FormStore.validateUserEmail');
@@ -210,15 +338,66 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   @override
+  void validateRole(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.validateRole');
+    try {
+      return super.validateRole(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void validateFirstName(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.validateFirstName');
+    try {
+      return super.validateFirstName(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void validateLastName(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.validateLastName');
+    try {
+      return super.validateLastName(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void validateProfession(String value) {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.validateProfession');
+    try {
+      return super.validateProfession(value);
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 userEmail: ${userEmail},
 password: ${password},
 confirmPassword: ${confirmPassword},
+role: ${role},
+firstName: ${firstName},
+lastName: ${lastName},
+profession: ${profession},
 success: ${success},
 loading: ${loading},
 canLogin: ${canLogin},
 canRegister: ${canRegister},
+canSubmitRole: ${canSubmitRole},
+canSubmitName: ${canSubmitName},
+canSubmitProfession: ${canSubmitProfession},
 canForgetPassword: ${canForgetPassword}
     ''';
   }
@@ -246,6 +425,28 @@ mixin _$FormErrorStore on _FormErrorStore, Store {
           Computed<bool>(() => super.hasErrorInForgotPassword,
               name: '_FormErrorStore.hasErrorInForgotPassword'))
       .value;
+  Computed<bool>? _$hasErrorsInRoleInputComputed;
+
+  @override
+  bool get hasErrorsInRoleInput => (_$hasErrorsInRoleInputComputed ??=
+          Computed<bool>(() => super.hasErrorsInRoleInput,
+              name: '_FormErrorStore.hasErrorsInRoleInput'))
+      .value;
+  Computed<bool>? _$hasErrorsInNameInputComputed;
+
+  @override
+  bool get hasErrorsInNameInput => (_$hasErrorsInNameInputComputed ??=
+          Computed<bool>(() => super.hasErrorsInNameInput,
+              name: '_FormErrorStore.hasErrorsInNameInput'))
+      .value;
+  Computed<bool>? _$hasErrorsInProfessionInputComputed;
+
+  @override
+  bool get hasErrorsInProfessionInput =>
+      (_$hasErrorsInProfessionInputComputed ??= Computed<bool>(
+              () => super.hasErrorsInProfessionInput,
+              name: '_FormErrorStore.hasErrorsInProfessionInput'))
+          .value;
 
   late final _$userEmailAtom =
       Atom(name: '_FormErrorStore.userEmail', context: context);
@@ -295,15 +496,85 @@ mixin _$FormErrorStore on _FormErrorStore, Store {
     });
   }
 
+  late final _$roleAtom = Atom(name: '_FormErrorStore.role', context: context);
+
+  @override
+  String? get role {
+    _$roleAtom.reportRead();
+    return super.role;
+  }
+
+  @override
+  set role(String? value) {
+    _$roleAtom.reportWrite(value, super.role, () {
+      super.role = value;
+    });
+  }
+
+  late final _$firstNameAtom =
+      Atom(name: '_FormErrorStore.firstName', context: context);
+
+  @override
+  String? get firstName {
+    _$firstNameAtom.reportRead();
+    return super.firstName;
+  }
+
+  @override
+  set firstName(String? value) {
+    _$firstNameAtom.reportWrite(value, super.firstName, () {
+      super.firstName = value;
+    });
+  }
+
+  late final _$lastNameAtom =
+      Atom(name: '_FormErrorStore.lastName', context: context);
+
+  @override
+  String? get lastName {
+    _$lastNameAtom.reportRead();
+    return super.lastName;
+  }
+
+  @override
+  set lastName(String? value) {
+    _$lastNameAtom.reportWrite(value, super.lastName, () {
+      super.lastName = value;
+    });
+  }
+
+  late final _$professionAtom =
+      Atom(name: '_FormErrorStore.profession', context: context);
+
+  @override
+  String? get profession {
+    _$professionAtom.reportRead();
+    return super.profession;
+  }
+
+  @override
+  set profession(String? value) {
+    _$professionAtom.reportWrite(value, super.profession, () {
+      super.profession = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-      userEmail: ${userEmail},
-      password: ${password},
-      confirmPassword: ${confirmPassword},
-      hasErrorsInLogin: ${hasErrorsInLogin},
-      hasErrorsInRegister: ${hasErrorsInRegister},
-      hasErrorInForgotPassword: ${hasErrorInForgotPassword}
+userEmail: ${userEmail},
+password: ${password},
+confirmPassword: ${confirmPassword},
+role: ${role},
+firstName: ${firstName},
+lastName: ${lastName},
+profession: ${profession},
+hasErrorsInLogin: ${hasErrorsInLogin},
+hasErrorsInRegister: ${hasErrorsInRegister},
+hasErrorInForgotPassword: ${hasErrorInForgotPassword},
+hasErrorsInRoleInput: ${hasErrorsInRoleInput},
+hasErrorsInNameInput: ${hasErrorsInNameInput},
+hasErrorsInProfessionInput: ${hasErrorsInProfessionInput}
     ''';
   }
 }
