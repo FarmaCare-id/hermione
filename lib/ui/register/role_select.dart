@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
@@ -109,7 +110,8 @@ class _RoleScreenState extends State<RoleScreen> {
             SizedBox(height: 16),
             Image(image: AssetImage('assets/icons/ic_user.png')),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
               child: Text(
                 'Regular User',
                 style: TextStyle(
@@ -149,7 +151,8 @@ class _RoleScreenState extends State<RoleScreen> {
             SizedBox(height: 16),
             Image(image: AssetImage('assets/icons/ic_healthcare.png')),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
               child: Text(
                 'Healthcare Worker',
                 style: TextStyle(
@@ -170,7 +173,21 @@ class _RoleScreenState extends State<RoleScreen> {
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.nameInput);
+
+          if (_isUser) {
+            _store.setRole('user');
+          } else if (_isHealthcare) {
+            _store.setRole('healthcare');
+          } else {
+            _store.setRole('');
+          }
+
+          if (_store.canSubmitRole) {
+            Navigator.pushNamed(context, Routes.nameInput);
+          } else {
+            _showErrorMessage("Please select a role");
+          }
+
         },
         child: Text(
           AppLocalizations.of(context).translate('common_next'),
@@ -189,6 +206,23 @@ class _RoleScreenState extends State<RoleScreen> {
         ),
       ),
     );
+  }
+
+  // General Methods:-----------------------------------------------------------
+  _showErrorMessage(String message) {
+    if (message.isNotEmpty) {
+      Future.delayed(Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: AppLocalizations.of(context).translate('home_tv_error'),
+            duration: Duration(seconds: 3),
+          )..show(context);
+        }
+      });
+    }
+
+    return SizedBox.shrink();
   }
 
   @override

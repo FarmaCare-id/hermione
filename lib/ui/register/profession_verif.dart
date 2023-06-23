@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
@@ -10,13 +11,15 @@ import 'package:provider/provider.dart';
 
 class ProfessionVerifRegisterScreen extends StatefulWidget {
   @override
-  _ProfessionVerifRegisterScreenState createState() => _ProfessionVerifRegisterScreenState();
+  _ProfessionVerifRegisterScreenState createState() =>
+      _ProfessionVerifRegisterScreenState();
 }
 
-class _ProfessionVerifRegisterScreenState extends State<ProfessionVerifRegisterScreen> {
+class _ProfessionVerifRegisterScreenState
+    extends State<ProfessionVerifRegisterScreen> {
   // text controllers:-----------------------------------------------------------
   TextEditingController _licenseNumberController = TextEditingController();
-  
+
   // stores: ----------------------------------------------------------
   late ThemeStore _themeStore;
   final _store = FormStore();
@@ -59,19 +62,20 @@ class _ProfessionVerifRegisterScreenState extends State<ProfessionVerifRegisterS
                     color: Colors.black,
                     fontSize: 32,
                     fontWeight: FontWeight.normal,
-                  ),            
+                  ),
                 ),
                 SizedBox(height: 32),
                 Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16),
                   child: Text(
-                    AppLocalizations.of(context).translate('signup_profession_verif_desc'),
+                    AppLocalizations.of(context)
+                        .translate('signup_profession_verif_desc'),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.greyLabel,
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
-                    ),            
+                    ),
                   ),
                 ),
                 SizedBox(height: 32),
@@ -129,8 +133,11 @@ class _ProfessionVerifRegisterScreenState extends State<ProfessionVerifRegisterS
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-          // Navigator.pushNamed(context, Routes.professionInput);
-          _showBottomModal(context);
+          if (_store.canSubmitLicenseNumber) {
+            _showBottomModal(context);
+          } else {
+            _showErrorMessage("Please fill in all fields");
+          }
         },
         child: Text(
           AppLocalizations.of(context).translate('common_next'),
@@ -153,97 +160,94 @@ class _ProfessionVerifRegisterScreenState extends State<ProfessionVerifRegisterS
 
   _showBottomModal(context) {
     showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (builder) {
-        return Container(
-          // height: 300,
-          color: Colors.transparent,
-          child: new Container(
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(10.0),
-                topRight: const Radius.circular(10.0),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10.0, // has the effect of softening the shadow
-                  spreadRadius: 0.0, // has the effect of extending the shadow
-                )
-              ],
-            ),
-            alignment: Alignment.topLeft,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: 5, right: 5),
-                      
-                      child: IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ],
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (builder) {
+          return Container(
+            // height: 300,
+            color: Colors.transparent,
+            child: new Container(
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(10.0),
+                  topRight: const Radius.circular(10.0),
                 ),
-                SizedBox(height: 5),
-                Container(
-                  padding: EdgeInsets.fromLTRB(35, 25, 35, 25),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: const Color(0xfff8f8f8),
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        'Confirm Your Information',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Colors.black,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0, // has the effect of softening the shadow
+                    spreadRadius: 0.0, // has the effect of extending the shadow
+                  )
+                ],
+              ),
+              alignment: Alignment.topLeft,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 5, right: 5),
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
-                      SizedBox(height: 32),
-                      RichText(
-                        textAlign: TextAlign.justify,
-                        text: TextSpan(
-                          text: AppLocalizations.of(context).translate('signup_modal_confirm_desc'),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: AppColors.greyLabel,
-                            wordSpacing: 1
-                          )
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      _buildNextButtonModal(),
-                      _buildCancelButtonModal()
                     ],
                   ),
-                ),
-              ],
+                  SizedBox(height: 5),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(35, 25, 35, 25),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: const Color(0xfff8f8f8),
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Confirm Your Information',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 32),
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)
+                                  .translate('signup_modal_confirm_desc'),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 22,
+                                  color: AppColors.greyLabel,
+                                  wordSpacing: 1)),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildNextButtonModal(),
+                        _buildCancelButtonModal()
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 
   Widget _buildNextButtonModal() {
@@ -296,6 +300,21 @@ class _ProfessionVerifRegisterScreenState extends State<ProfessionVerifRegisterS
         ),
       ),
     );
+  }
+
+  // General Methods:-----------------------------------------------------------
+  _showErrorMessage(String message) {
+    if (message.isNotEmpty) {
+      Future.delayed(Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: AppLocalizations.of(context).translate('home_tv_error'),
+            duration: Duration(seconds: 3),
+          )..show(context);
+        }
+      });
+    }
   }
 
   @override

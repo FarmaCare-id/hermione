@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
@@ -169,7 +170,19 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.professionVerif);
+          if (_isDoctor) {
+            _store.setProfession('doctor');
+          } else if (_isApothecary) {
+            _store.setProfession('apothecary');
+          } else {
+            _store.setProfession('');
+          }
+
+          if (_store.canSubmitProfession) {
+            Navigator.pushNamed(context, Routes.professionVerif);
+          } else {
+            _showErrorMessage("Please select a profession");
+          }
         },
         child: Text(
           AppLocalizations.of(context).translate('common_next'),
@@ -188,6 +201,23 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
         ),
       ),
     );
+  }
+
+  // General Methods:-----------------------------------------------------------
+  _showErrorMessage(String message) {
+    if (message.isNotEmpty) {
+      Future.delayed(Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: AppLocalizations.of(context).translate('home_tv_error'),
+            duration: Duration(seconds: 3),
+          )..show(context);
+        }
+      });
+    }
+
+    return SizedBox.shrink();
   }
 
   @override
