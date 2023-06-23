@@ -10,8 +10,8 @@ import 'package:farmacare/ui/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 import 'package:farmacare/ui/home/post.dart';
-import 'package:farmacare/ui/reply/replyApp.dart';
-import 'package:farmacare/ui/reply/reply.dart';
+// import 'package:farmacare/ui/reply/replyApp.dart';
+// import 'package:farmacare/ui/reply/reply.dart';
 
 class Routes {
   Routes._();
@@ -41,7 +41,7 @@ class Routes {
     professionVerif: (BuildContext context) => ProfessionVerifRegisterScreen(),
     home: (BuildContext context) => HomeScreen(),
     post: (BuildContext context) => PostScreen(),
-    reply: (BuildContext context) => ReplyApp(),
-    replyHome: (BuildContext context) => ReplyPage(),
+    // reply: (BuildContext context) => ReplyApp(),
+    // replyHome: (BuildContext context) => ReplyPage(),
   };
 }
