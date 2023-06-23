@@ -163,6 +163,128 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
+          if (_store.canSubmitName) {
+            _showBottomModal(context);
+          } else {
+            _showErrorMessage("Please fill in all fields");
+          }
+        },
+        child: Text(
+          AppLocalizations.of(context).translate('common_next'),
+          style: TextStyle(
+            color: AppColors.white50,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.bluePeriwinkle,
+          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _showBottomModal(context) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (builder) {
+          return Container(
+            // height: 300,
+            color: Colors.transparent,
+            child: new Container(
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(10.0),
+                  topRight: const Radius.circular(10.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0, // has the effect of softening the shadow
+                    spreadRadius: 0.0, // has the effect of extending the shadow
+                  )
+                ],
+              ),
+              alignment: Alignment.topLeft,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 5, right: 5),
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(35, 25, 35, 25),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: const Color(0xfff8f8f8),
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Confirm Your Information',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 32),
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)
+                                  .translate('signup_modal_confirm_desc'),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 22,
+                                  color: AppColors.greyLabel,
+                                  wordSpacing: 1)),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildNextButtonModal(),
+                        _buildCancelButtonModal()
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Widget _buildNextButtonModal() {
+    return Container(
+      padding: EdgeInsets.only(top: 32),
+      child: ElevatedButton(
+        onPressed: () {
           Navigator.pushNamed(context, Routes.professionInput);
         },
         child: Text(
@@ -175,6 +297,32 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.bluePeriwinkle,
+          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCancelButtonModal() {
+    return Container(
+      padding: EdgeInsets.only(top: 16),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Text(
+          'Cancel',
+          style: TextStyle(
+            color: AppColors.black800,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.grey[300],
           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
