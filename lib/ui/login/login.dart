@@ -220,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
           controller: _userEmailController,
           autofocus: false,
           onChanged: (value) {
-            _store.setUserId(_userEmailController.text);
+            _store.setUserEmail(_userEmailController.text);
           },
           onSubmitted: (value) {
             FocusScope.of(context).requestFocus(_passwordFocusNode);

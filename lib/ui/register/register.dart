@@ -267,7 +267,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           controller: _userEmailController,
           autofocus: false,
           onChanged: (value) {
-            _formStore.setUserId(_userEmailController.text);
+            _formStore.setUserEmail(_userEmailController.text);
           },
           onSubmitted: (value) {
             FocusScope.of(context).requestFocus(_passwordFocusNode);
