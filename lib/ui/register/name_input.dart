@@ -286,8 +286,13 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, Routes.professionInput);
+          if (_formStore.role == 'user') {
+            _formStore.setFullName();
+            _formStore.registerUser();
+          } else {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, Routes.professionInput);
+          }
         },
         child: Text(
           _formStore.role == 'user'
@@ -343,7 +348,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
 
     Future.delayed(Duration(milliseconds: 0), () {
       Navigator.of(context).pushNamedAndRemoveUntil(
-          Routes.home, (Route<dynamic> route) => false);
+          Routes.login, (Route<dynamic> route) => false);
     });
 
     return Container();

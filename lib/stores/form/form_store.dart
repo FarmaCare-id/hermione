@@ -98,8 +98,7 @@ abstract class _FormStore with Store {
 
   @computed
   bool get canSubmitLicenseNumber =>
-      !formErrorStore.hasErrorsInLicenseNumberInput &&
-      licenseNumber.isNotEmpty;
+      !formErrorStore.hasErrorsInLicenseNumberInput && licenseNumber.isNotEmpty;
 
   @computed
   bool get canForgetPassword =>
@@ -231,8 +230,22 @@ abstract class _FormStore with Store {
   }
 
   @action
-  Future register() async {
+  Future registerUser() async {
     loading = true;
+
+    Future.delayed(Duration(milliseconds: 2000)).then((future) {
+      loading = false;
+
+      final future = getIt.get<Repository>().registerUser(
+          userEmail, fullName, password);
+      // fetchRegisterFuture = Observable(future);
+
+      future.then((response) {
+        success = response;
+      }).catchError((error) {
+        success = false;
+      });
+    });
   }
 
   @action

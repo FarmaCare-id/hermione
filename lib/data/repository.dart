@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:farmacare/data/local/datasources/post/post_datasource.dart';
+import 'package:farmacare/data/network/apis/register/register_api.dart';
 import 'package:farmacare/data/sharedpref/shared_preference_helper.dart';
 import 'package:farmacare/models/post/post.dart';
 import 'package:farmacare/models/post/post_list.dart';
@@ -17,12 +18,14 @@ class Repository {
   // api objects
   final PostApi _postApi;
   final LoginApi _loginApi;
+  final RegisterApi _registerApi;
 
   // shared pref object
   final SharedPreferenceHelper _sharedPrefsHelper;
 
   // constructor
-  Repository(this._postApi, this._loginApi, this._sharedPrefsHelper,
+  Repository(this._postApi, this._loginApi, this._registerApi,
+      this._sharedPrefsHelper,
       this._postDataSource);
 
   // Post: ---------------------------------------------------------------------
@@ -95,6 +98,22 @@ class Repository {
       _sharedPrefsHelper.saveIsLoggedIn(value);
 
   Future<bool> get isLoggedIn => _sharedPrefsHelper.isLoggedIn;
+
+  // Register:------------------------------------------------------------------
+  Future<bool> registerUser(String email, String fullName,
+      String password) async {
+    return await _registerApi
+        .registerUser(email, fullName, password)
+        .then((data) {
+      if (data['status'] == 'FAILED') {
+        throw data['error'];
+        // return false;
+      } else {
+        // return Future.value(true);
+        return true;
+      }
+    }).catchError((error) => throw error);
+  }
 
   // Theme: --------------------------------------------------------------------
   Future<void> changeBrightnessToDark(bool value) =>

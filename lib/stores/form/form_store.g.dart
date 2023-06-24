@@ -231,12 +231,12 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
-  late final _$registerAsyncAction =
-      AsyncAction('_FormStore.register', context: context);
+  late final _$registerUserAsyncAction =
+      AsyncAction('_FormStore.registerUser', context: context);
 
   @override
-  Future<dynamic> register() {
-    return _$registerAsyncAction.run(() => super.register());
+  Future<dynamic> registerUser() {
+    return _$registerUserAsyncAction.run(() => super.registerUser());
   }
 
   late final _$loginAsyncAction =

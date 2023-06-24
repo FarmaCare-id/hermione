@@ -1,6 +1,7 @@
 import 'package:farmacare/data/local/datasources/post/post_datasource.dart';
 import 'package:farmacare/data/network/apis/posts/post_api.dart';
 import 'package:farmacare/data/network/apis/login/login_api.dart';
+import 'package:farmacare/data/network/apis/register/register_api.dart';
 import 'package:farmacare/data/network/dio_client.dart';
 import 'package:farmacare/data/network/rest_client.dart';
 import 'package:farmacare/data/repository.dart';
@@ -41,6 +42,7 @@ Future<void> setupLocator() async {
   // api's:---------------------------------------------------------------------
   getIt.registerSingleton(PostApi(getIt<DioClient>()));
   getIt.registerSingleton(LoginApi(getIt<DioClient>()));
+  getIt.registerSingleton(RegisterApi(getIt<DioClient>()));
 
   // data sources
   getIt.registerSingleton(PostDataSource(await getIt.getAsync<Database>()));
@@ -49,6 +51,7 @@ Future<void> setupLocator() async {
   getIt.registerSingleton(Repository(
     getIt<PostApi>(),
     getIt<LoginApi>(),
+    getIt<RegisterApi>(),
     getIt<SharedPreferenceHelper>(),
     getIt<PostDataSource>(),
   ));
