@@ -255,6 +255,7 @@ class _ProfessionVerifRegisterScreenState
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
+          Navigator.pop(context);
           Navigator.pushNamed(context, Routes.professionInput);
         },
         child: Text(
