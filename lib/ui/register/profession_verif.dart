@@ -7,6 +7,7 @@ import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/widgets/progress_indicator_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class ProfessionVerifRegisterScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _ProfessionVerifRegisterScreenState
 
   // stores: ----------------------------------------------------------
   late ThemeStore _themeStore;
-  final _store = FormStore();
+  late FormStore _formStore;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _ProfessionVerifRegisterScreenState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _formStore = Provider.of<FormStore>(context);
     _themeStore = Provider.of<ThemeStore>(context);
   }
 
@@ -88,7 +90,7 @@ class _ProfessionVerifRegisterScreenState
           Observer(
             builder: (context) {
               return Visibility(
-                visible: _store.loading,
+                visible: _formStore.loading,
                 child: CustomProgressIndicatorWidget(),
               );
             },
@@ -111,14 +113,14 @@ class _ProfessionVerifRegisterScreenState
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.licenseNumber,
+            errorText: _formStore.formErrorStore.licenseNumber,
           ),
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _licenseNumberController,
           autofocus: false,
           onChanged: (value) {
-            _store.setLicenseNumber(_licenseNumberController.text);
+            _formStore.setLicenseNumber(_licenseNumberController.text);
           },
           onSubmitted: (value) {
             FocusScope.of(context).unfocus();
@@ -133,7 +135,7 @@ class _ProfessionVerifRegisterScreenState
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-          if (_store.canSubmitLicenseNumber) {
+          if (_formStore.canSubmitLicenseNumber) {
             _showBottomModal(context);
           } else {
             _showErrorMessage("Please fill in all fields");

@@ -15,7 +15,7 @@ class ProfessionInputRegisterScreen extends StatefulWidget {
 class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterScreen> {
   // stores: ----------------------------------------------------------
   late ThemeStore _themeStore;
-  final _store = FormStore();
+  late FormStore _formStore;
 
   bool _isDoctor = false;
   bool _isApothecary = false;
@@ -28,6 +28,7 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _formStore = Provider.of<FormStore>(context);
     _themeStore = Provider.of<ThemeStore>(context);
   }
 
@@ -171,14 +172,14 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
       child: ElevatedButton(
         onPressed: () {
           if (_isDoctor) {
-            _store.setProfession('doctor');
+            _formStore.setProfession('doctor');
           } else if (_isApothecary) {
-            _store.setProfession('apothecary');
+            _formStore.setProfession('apothecary');
           } else {
-            _store.setProfession('');
+            _formStore.setProfession('');
           }
 
-          if (_store.canSubmitProfession) {
+          if (_formStore.canSubmitProfession) {
             Navigator.pushNamed(context, Routes.professionVerif);
           } else {
             _showErrorMessage("Please select a profession");

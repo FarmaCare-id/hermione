@@ -6,6 +6,7 @@ import 'package:farmacare/utils/locale/app_localization.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/widgets/empty_app_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class RoleScreen extends StatefulWidget {
@@ -16,7 +17,8 @@ class RoleScreen extends StatefulWidget {
 class _RoleScreenState extends State<RoleScreen> {
   // stores: ----------------------------------------------------------
   late ThemeStore _themeStore;
-  final _store = FormStore();
+  // final FormStore _formStore = GetIt.instance<FormStore>();
+  late FormStore _formStore;
 
   bool _isUser = false;
   bool _isHealthcare = false;
@@ -29,6 +31,7 @@ class _RoleScreenState extends State<RoleScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _formStore = Provider.of<FormStore>(context);
     _themeStore = Provider.of<ThemeStore>(context);
   }
 
@@ -173,21 +176,22 @@ class _RoleScreenState extends State<RoleScreen> {
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-
           if (_isUser) {
-            _store.setRole('user');
+            _formStore.setRole('user');
+            _formStore.setRole('user');
           } else if (_isHealthcare) {
-            _store.setRole('healthcare');
+            _formStore.setRole('healthcare');
+            _formStore.setRole('healthcare');
           } else {
-            _store.setRole('');
+            _formStore.setRole('');
+            _formStore.setRole('');
           }
 
-          if (_store.canSubmitRole) {
+          if (_formStore.canSubmitRole) {
             Navigator.pushNamed(context, Routes.nameInput);
           } else {
             _showErrorMessage("Please select a role");
           }
-
         },
         child: Text(
           AppLocalizations.of(context).translate('common_next'),

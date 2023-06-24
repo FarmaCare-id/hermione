@@ -22,7 +22,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
 
   // stores: ----------------------------------------------------------
   late ThemeStore _themeStore;
-  final _store = FormStore();
+  late FormStore _formStore;
 
   // Focus nodes:--------------------------------------------------------------
   late FocusNode _firstNameFocusNode;
@@ -38,6 +38,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _formStore = Provider.of<FormStore>(context);
     _themeStore = Provider.of<ThemeStore>(context);
   }
 
@@ -82,14 +83,14 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
           ),
           Observer(
             builder: (context) {
-              return _store.success
+              return _formStore.success
                   ? navigate(context)
-                  : _showErrorMessage(_store.errorStore.errorMessage);
+                  : _showErrorMessage(_formStore.errorStore.errorMessage);
             },
           ),
           Observer(builder: (context) {
             return Visibility(
-              visible: _store.loading,
+              visible: _formStore.loading,
               child: CustomProgressIndicatorWidget(),
             );
           })
@@ -111,14 +112,14 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.firstName,
+            errorText: _formStore.formErrorStore.firstName,
           ),
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
           controller: _firstNameController,
           autofocus: false,
           onChanged: (value) {
-            _store.setFirstName(_firstNameController.text);
+            _formStore.setFirstName(_firstNameController.text);
           },
           onSubmitted: (value) {
             FocusScope.of(context).nextFocus();
@@ -141,14 +142,14 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.lastName,
+            errorText: _formStore.formErrorStore.lastName,
           ),
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.done,
           controller: _lastNameController,
           autofocus: false,
           onChanged: (value) {
-            _store.setLastName(_lastNameController.text);
+            _formStore.setLastName(_lastNameController.text);
           },
           onSubmitted: (value) {
             FocusScope.of(context).unfocus();
@@ -163,7 +164,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
       padding: EdgeInsets.only(top: 32),
       child: ElevatedButton(
         onPressed: () {
-          if (_store.canSubmitName) {
+          if (_formStore.canSubmitName) {
             _showBottomModal(context);
           } else {
             _showErrorMessage("Please fill in all fields");
@@ -289,7 +290,9 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
           Navigator.pushNamed(context, Routes.professionInput);
         },
         child: Text(
-          AppLocalizations.of(context).translate('common_next'),
+          _formStore.role == 'user'
+              ? 'Submit'
+              : AppLocalizations.of(context).translate('common_next'),
           style: TextStyle(
             color: AppColors.white50,
             fontSize: 16,

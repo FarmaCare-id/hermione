@@ -2,6 +2,7 @@ import 'package:farmacare/constants/app_theme.dart';
 import 'package:farmacare/constants/strings.dart';
 import 'package:farmacare/data/repository.dart';
 import 'package:farmacare/di/components/service_locator.dart';
+import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/language/language_store.dart';
 import 'package:farmacare/stores/post/post_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         Provider<ThemeStore>(create: (_) => _themeStore),
         Provider<PostStore>(create: (_) => _postStore),
         Provider<LanguageStore>(create: (_) => _languageStore),
+        Provider<FormStore>(create: (_) => FormStore()),
       ],
       child: Observer(
         name: 'global-observer',

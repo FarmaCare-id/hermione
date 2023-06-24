@@ -1,10 +1,8 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/constants/colors.dart';
-import 'package:farmacare/data/sharedpref/constants/preferences.dart';
 import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/language/language_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
-import 'package:farmacare/utils/device/device_utils.dart';
 import 'package:farmacare/utils/locale/app_localization.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/widgets/app_icon_widget.dart';
@@ -12,8 +10,8 @@ import 'package:farmacare/widgets/progress_indicator_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -35,7 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late FocusNode _confirmPasswordFocusNode;
 
   // stores:---------------------------------------------------------------------
-  final _store = FormStore();
+  late FormStore _formStore;
 
   @override
   void initState() {
@@ -49,6 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.didChangeDependencies();
 
     // initializing stores
+    _formStore = Provider.of<FormStore>(context);
     _languageStore = Provider.of<LanguageStore>(context);
     _themeStore = Provider.of<ThemeStore>(context);
   }
@@ -71,15 +70,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         Observer(
           builder: (context) {
-            return _store.success
+            return _formStore.success
                 ? navigate(context)
-                : _showErrorMessage(_store.errorStore.errorMessage);
+                : _showErrorMessage(_formStore.errorStore.errorMessage);
           },
         ),
         Observer(
           builder: (context) {
             return Visibility(
-              visible: _store.loading,
+              visible: _formStore.loading,
               child: CustomProgressIndicatorWidget(),
             );
           },
@@ -211,9 +210,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: MaterialButton(
         onPressed: () async {
           Navigator.pushNamed(context, Routes.roleSelect);
-          // if (_store.canLogin) {
+          // if (_formStore.canLogin) {
           //   DeviceUtils.hideKeyboard(context);
-          //   _store.login();
+          //   _formStore.login();
           // } else {
           //   _showErrorMessage('Please fill in all fields');
           // }
@@ -261,14 +260,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.userEmail,
+            errorText: _formStore.formErrorStore.userEmail,
           ),
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           controller: _userEmailController,
           autofocus: false,
           onChanged: (value) {
-            _store.setUserId(_userEmailController.text);
+            _formStore.setUserId(_userEmailController.text);
           },
           onSubmitted: (value) {
             FocusScope.of(context).requestFocus(_passwordFocusNode);
@@ -293,13 +292,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.password,
+            errorText: _formStore.formErrorStore.password,
           ),
           obscureText: true,
           controller: _passwordController,
           focusNode: _passwordFocusNode,
           onChanged: (value) {
-            _store.setPassword(_passwordController.text);
+            _formStore.setPassword(_passwordController.text);
           },
         );
       },
@@ -321,13 +320,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.confirmPassword,
+            errorText: _formStore.formErrorStore.confirmPassword,
           ),
           obscureText: true,
           controller: _confirmPasswordController,
           focusNode: _confirmPasswordFocusNode,
           onChanged: (value) {
-            _store.setConfirmPassword(_confirmPasswordController.text);
+            _formStore.setConfirmPassword(_confirmPasswordController.text);
           },
         );
       },
