@@ -153,6 +153,22 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
+  late final _$fullNameAtom =
+      Atom(name: '_FormStore.fullName', context: context);
+
+  @override
+  String get fullName {
+    _$fullNameAtom.reportRead();
+    return super.fullName;
+  }
+
+  @override
+  set fullName(String value) {
+    _$fullNameAtom.reportWrite(value, super.fullName, () {
+      super.fullName = value;
+    });
+  }
+
   late final _$professionAtom =
       Atom(name: '_FormStore.profession', context: context);
 
@@ -317,6 +333,17 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   @override
+  void setFullName() {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.setFullName');
+    try {
+      return super.setFullName();
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setProfession(String value) {
     final _$actionInfo = _$_FormStoreActionController.startAction(
         name: '_FormStore.setProfession');
@@ -435,6 +462,7 @@ confirmPassword: ${confirmPassword},
 role: ${role},
 firstName: ${firstName},
 lastName: ${lastName},
+fullName: ${fullName},
 profession: ${profession},
 licenseNumber: ${licenseNumber},
 success: ${success},

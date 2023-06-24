@@ -55,6 +55,9 @@ abstract class _FormStore with Store {
   String lastName = '';
 
   @observable
+  String fullName = '';
+
+  @observable
   String profession = '';
 
   @observable
@@ -131,6 +134,11 @@ abstract class _FormStore with Store {
   @action
   void setLastName(String value) {
     lastName = value;
+  }
+
+  @action
+  void setFullName() {
+    fullName = this.firstName + ' ' + this.lastName;
   }
 
   @action
