@@ -114,7 +114,7 @@ class _RoleScreenState extends State<RoleScreen> {
             Image(image: AssetImage('assets/icons/ic_user.png')),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
+                  const EdgeInsets.symmetric(horizontal: 26.0, vertical: 8.0),
               child: Text(
                 'Regular User',
                 style: TextStyle(
@@ -155,7 +155,7 @@ class _RoleScreenState extends State<RoleScreen> {
             Image(image: AssetImage('assets/icons/ic_healthcare.png')),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
                 'Healthcare Worker',
                 style: TextStyle(
