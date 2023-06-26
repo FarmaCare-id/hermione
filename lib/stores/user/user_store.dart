@@ -21,15 +21,20 @@ abstract class _UserStore with Store {
   // bool to check if current user is logged in
   bool isLoggedIn = false;
 
+  // auth token
+  String authToken = '';
+
   // constructor:---------------------------------------------------------------
   _UserStore(Repository repository) : this._repository = repository {
-
     // setting up disposers
     _setupDisposers();
 
     // checking if user is logged in
     repository.isLoggedIn.then((value) {
       this.isLoggedIn = value;
+      repository.authToken.then((value) {
+        this.authToken = value!;
+      });
     });
   }
 
@@ -44,7 +49,7 @@ abstract class _UserStore with Store {
 
   // empty responses:-----------------------------------------------------------
   static ObservableFuture<bool> emptyLoginResponse =
-  ObservableFuture.value(false);
+      ObservableFuture.value(false);
 
   // store variables:-----------------------------------------------------------
   @observable
@@ -59,12 +64,13 @@ abstract class _UserStore with Store {
   // actions:-------------------------------------------------------------------
   @action
   Future login(String email, String password) async {
-
     final future = _repository.login(email, password);
-    loginFuture = ObservableFuture(future);
+    // loginFuture = ObservableFuture(future);
     await future.then((value) async {
       if (value) {
         _repository.saveIsLoggedIn(true);
+        _repository.saveAuthToken(value['token']);
+        this.authToken = value['token'];
         this.isLoggedIn = true;
         this.success = true;
       } else {
