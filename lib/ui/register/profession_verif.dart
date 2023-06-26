@@ -50,43 +50,7 @@ class _ProfessionVerifRegisterScreenState
     return Material(
       child: Stack(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  'Profession Verification',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 32,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                SizedBox(height: 32),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: Text(
-                    AppLocalizations.of(context)
-                        .translate('signup_profession_verif_desc'),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.greyLabel,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 32),
-                _buildLicenceNumberField(),
-                SizedBox(height: 256),
-                _buildNextButton(),
-              ],
-            ),
-          ),
+          Center(child: _buildMainContent()),
           Observer(
             builder: (context) {
               return Visibility(
@@ -97,6 +61,48 @@ class _ProfessionVerifRegisterScreenState
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMainContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Profession Verification',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 32,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Text(
+                AppLocalizations.of(context)
+                    .translate('signup_profession_verif_desc'),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.greyLabel,
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+            SizedBox(height: 32),
+            _buildLicenceNumberField(),
+            SizedBox(height: 32),
+            _buildNextButton(),
+          ],
+        ),
+      )
     );
   }
 
@@ -131,29 +137,32 @@ class _ProfessionVerifRegisterScreenState
   }
 
   Widget _buildNextButton() {
-    return Container(
-      padding: EdgeInsets.only(top: 32),
-      child: ElevatedButton(
-        onPressed: () {
-          if (_formStore.canSubmitLicenseNumber) {
-            _showBottomModal(context);
-          } else {
-            _showErrorMessage("Please fill in all fields");
-          }
-        },
-        child: Text(
-          AppLocalizations.of(context).translate('common_next'),
-          style: TextStyle(
-            color: AppColors.white50,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: ClampingScrollPhysics(),
+      child: Container(
+        child: ElevatedButton(
+          onPressed: () {
+            if (_formStore.canSubmitLicenseNumber) {
+              _showBottomModal(context);
+            } else {
+              _showErrorMessage("Please fill in all fields");
+            }
+          },
+          child: Text(
+            AppLocalizations.of(context).translate('common_next'),
+            style: TextStyle(
+              color: AppColors.white50,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.bluePeriwinkle,
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.bluePeriwinkle,
+            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32),
+            ),
           ),
         ),
       ),
@@ -233,7 +242,7 @@ class _ProfessionVerifRegisterScreenState
                                   .translate('signup_modal_confirm_desc'),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 22,
+                                  fontSize: 16,
                                   color: AppColors.greyLabel,
                                   wordSpacing: 1)),
                         ),

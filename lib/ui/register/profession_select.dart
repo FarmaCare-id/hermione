@@ -105,22 +105,20 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
             width: _isDoctor ? 6.0 : 1.0,
           ),
         ),
-        child: Column(
-          children: [
-            SizedBox(height: 32),
-            Image(image: AssetImage('assets/icons/user-doctor.png')),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 8.0),
-              child: Text(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            children: [
+              Image(image: AssetImage('assets/icons/user-doctor.png')),
+              Text(
                 'Doctor',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-            ),
-            SizedBox(height: 16)
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -145,22 +143,20 @@ class _ProfessionInputRegisterScreenState extends State<ProfessionInputRegisterS
             width: _isApothecary ? 6.0 : 1.0,
           ),
         ),
-        child: Column(
-          children: [
-            SizedBox(height: 32),
-            Image(image: AssetImage('assets/icons/user_apothecary.png')),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0, vertical: 8.0),
-              child: Text(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            children: [
+              Image(image: AssetImage('assets/icons/user_apothecary.png')),
+              Text(
                 'Apothecary',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-            ),
-            SizedBox(height: 16)
-          ],
+            ],
+          ),
         ),
       ),
     );

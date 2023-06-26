@@ -108,23 +108,20 @@ class _RoleScreenState extends State<RoleScreen> {
             width: _isUser ? 6.0 : 1.0,
           ),
         ),
-        child: Column(
-          children: [
-            SizedBox(height: 16),
-            Image(image: AssetImage('assets/icons/ic_user.png')),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 26.0, vertical: 8.0),
-              child: Text(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Image(image: AssetImage('assets/icons/ic_user.png')),
+              Text(
                 'Regular User',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-            ),
-            SizedBox(height: 16)
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -149,23 +146,20 @@ class _RoleScreenState extends State<RoleScreen> {
             width: _isHealthcare ? 6.0 : 1.0,
           ),
         ),
-        child: Column(
-          children: [
-            SizedBox(height: 16),
-            Image(image: AssetImage('assets/icons/ic_healthcare.png')),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Image(image: AssetImage('assets/icons/ic_healthcare.png')),
+              Text(
                 'Healthcare Worker',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-            ),
-            SizedBox(height: 16)
-          ],
+            ],
+          ),
         ),
       ),
     );

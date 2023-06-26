@@ -55,32 +55,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
     return Material(
       child: Stack(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  'Tell us about yourself',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 32,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                SizedBox(height: 32),
-                Center(),
-                _buildFirstNameField(),
-                SizedBox(height: 8),
-                _buildLastNameField(),
-                // SizedBox(height: 270),
-                _buildNextButton(),
-              ],
-            ),
-          ),
+          _buildMainContent(),
           Observer(
             builder: (context) {
               return _formStore.success
@@ -95,6 +70,37 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
             );
           })
         ],
+      ),
+    );
+  }
+
+  Widget _buildMainContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Tell us about yourself',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 32,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SizedBox(height: 32),
+            Center(),
+            _buildFirstNameField(),
+            SizedBox(height: 8),
+            _buildLastNameField(),
+            SizedBox(height: 32),
+            _buildNextButton(),
+          ],
+        ),
       ),
     );
   }
@@ -262,7 +268,7 @@ class _NameInputRegisterScreenState extends State<NameInputRegisterScreen> {
                                   .translate('signup_modal_confirm_desc'),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 22,
+                                  fontSize: 16,
                                   color: AppColors.greyLabel,
                                   wordSpacing: 1)),
                         ),
