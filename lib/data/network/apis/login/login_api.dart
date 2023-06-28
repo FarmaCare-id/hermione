@@ -34,4 +34,30 @@ class LoginApi {
       };
     }
   }
+
+  Future<dynamic> logout(String token) async {
+    try {
+      String url = Endpoints.logout;
+      final res = await _dioClient.post(url, data: {
+        'token': token,
+      });
+
+      if (res['status'] == 'SUCCESS') {
+        return {
+          'status': 'SUCCESS',
+          'message': res['message'],
+        };
+      }
+      return {
+        'status': 'ERROR',
+        'message': res['error'],
+      };
+    } catch (e) {
+      print(e.toString());
+      throw {
+        'status': 'ERROR',
+        'message': e.toString(),
+      };
+    }
+  }
 }

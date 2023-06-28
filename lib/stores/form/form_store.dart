@@ -1,6 +1,7 @@
 import 'package:farmacare/data/repository.dart';
 import 'package:farmacare/di/components/service_locator.dart';
 import 'package:farmacare/stores/error/error_store.dart';
+import 'package:farmacare/stores/user/user_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:validators/validators.dart';
 
@@ -14,9 +15,11 @@ abstract class _FormStore with Store {
 
   // store for handling error messages
   final ErrorStore errorStore = ErrorStore();
+  late UserStore _userStore;
 
   _FormStore() {
     _setupValidations();
+    _userStore = getIt<UserStore>();
   }
 
   // disposers:-----------------------------------------------------------------
@@ -236,8 +239,8 @@ abstract class _FormStore with Store {
     Future.delayed(Duration(milliseconds: 2000)).then((future) {
       loading = false;
 
-      final future = getIt.get<Repository>().registerUser(
-          userEmail, fullName, password);
+      final future =
+          getIt.get<Repository>().registerUser(userEmail, fullName, password);
       // fetchRegisterFuture = Observable(future);
 
       future.then((response) {
@@ -252,28 +255,20 @@ abstract class _FormStore with Store {
   Future login() async {
     loading = true;
 
-    Future.delayed(Duration(milliseconds: 2000)).then((future) {
+    try {
+      final response = await getIt.get<UserStore>().login(userEmail, password);
       loading = false;
-
-      final future = getIt.get<Repository>().login(userEmail, password);
-      // fetchLoginFuture = Observable(future);
-
-      future.then((response) {
-        success = response;
-      }).catchError((error) {
-        success = false;
-
-        // TODO: repair error message
-        // errorStore.errorMessage = DioErrorUtil.handleError(error);
-        errorStore.errorMessage = error
-                .toString()
-                .contains("ERROR_USER_NOT_FOUND")
-            ? "Username and password doesn't match"
-            : "Something went wrong, please check your internet connection and try again";
-        print(errorStore.errorMessage);
-        print(error);
-      });
-    });
+      success = true;
+      return response;
+    } catch (error) {
+      loading = false;
+      success = false;
+      errorStore.errorMessage = error
+          .toString()
+          .contains("ERROR_USER_NOT_FOUND")
+          ? "Username and password doesn't match"
+          : "Something went wrong, please check your internet connection and try again";
+    }
   }
 
   @action

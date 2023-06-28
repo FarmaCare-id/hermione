@@ -22,7 +22,7 @@ abstract class _UserStore with Store {
   bool isLoggedIn = false;
 
   // auth token
-  String authToken = '';
+  String authToken = 'kosong';
 
   // constructor:---------------------------------------------------------------
   _UserStore(Repository repository) : this._repository = repository {
@@ -64,13 +64,13 @@ abstract class _UserStore with Store {
   // actions:-------------------------------------------------------------------
   @action
   Future login(String email, String password) async {
-    final future = _repository.login(email, password);
-    // loginFuture = ObservableFuture(future);
+    var future = _repository.login(email, password);
+
     await future.then((value) async {
-      if (value) {
+      if (value != null) {
         _repository.saveIsLoggedIn(true);
-        _repository.saveAuthToken(value['token']);
-        this.authToken = value['token'];
+        _repository.saveAuthToken(value);
+        this.authToken = value;
         this.isLoggedIn = true;
         this.success = true;
       } else {
@@ -84,9 +84,25 @@ abstract class _UserStore with Store {
     });
   }
 
-  logout() {
-    this.isLoggedIn = false;
-    _repository.saveIsLoggedIn(false);
+  Future logout(String token) async {
+    final future = _repository.logout(token);
+
+    await future.then((value) async {
+      if (value) {
+        _repository.saveIsLoggedIn(false);
+        _repository.saveAuthToken('');
+        this.authToken = '';
+        this.isLoggedIn = false;
+        this.success = true;
+      } else {
+        print('failed to logout');
+      }
+    }).catchError((e) {
+      print(e);
+      this.isLoggedIn = true;
+      this.success = false;
+      throw e;
+    });
   }
 
   // general methods:-----------------------------------------------------------
