@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:farmacare/data/local/datasources/post/post_datasource.dart';
+import 'package:farmacare/data/network/apis/profile/profile_api.dart';
 import 'package:farmacare/data/network/apis/register/register_api.dart';
 import 'package:farmacare/data/sharedpref/shared_preference_helper.dart';
 import 'package:farmacare/models/post/post.dart';
 import 'package:farmacare/models/post/post_list.dart';
+import 'package:farmacare/models/user/user.dart';
 import 'package:sembast/sembast.dart';
 
 import 'local/constants/db_constants.dart';
@@ -19,14 +21,14 @@ class Repository {
   final PostApi _postApi;
   final LoginApi _loginApi;
   final RegisterApi _registerApi;
+  final ProfileApi _profileApi;
 
   // shared pref object
   final SharedPreferenceHelper _sharedPrefsHelper;
 
   // constructor
-  Repository(this._postApi, this._loginApi, this._registerApi,
-      this._sharedPrefsHelper,
-      this._postDataSource);
+  Repository(this._postApi, this._loginApi, this._registerApi, this._profileApi,
+      this._sharedPrefsHelper, this._postDataSource);
 
   // Post: ---------------------------------------------------------------------
   Future<PostList> getPosts() async {
@@ -72,8 +74,15 @@ class Repository {
       .then((id) => id)
       .catchError((error) => throw error);
 
-  // Login:---------------------------------------------------------------------
-  Future<bool> login(String email, String password) async {
+  // Profile: ------------------------------------------------------------------
+  Future<User> getProfile() async {
+    return await _profileApi.getProfile().then((user) {
+      return user;
+    }).catchError((error) => throw error);
+  }
+
+  // Auth:---------------------------------------------------------------------
+  Future<dynamic> login(String email, String password) async {
     return await _sharedPrefsHelper.isLoggedIn.then((isLoggedIn) {
       if (!isLoggedIn) {
         return _loginApi.login(email, password).then((data) {
@@ -82,8 +91,8 @@ class Repository {
             // return false;
           } else {
             _sharedPrefsHelper.saveAuthToken(data['token']);
-            // return Future.value(true);
-            return true;
+            // _sharedPrefsHelper.saveIsLoggedIn(true);
+            return data['token'];
           }
         }).catchError((error) => throw error);
       } else {
@@ -94,14 +103,38 @@ class Repository {
     // return await Future.delayed(Duration(seconds: 2), ()=> true);
   }
 
+  Future<dynamic> logout(String token) async {
+    return await _sharedPrefsHelper.isLoggedIn.then((isLoggedIn) {
+      if (isLoggedIn) {
+        return _loginApi.logout(token).then((data) {
+          if (data['status'] == 'FAILED') {
+            throw data['error'];
+            // return false;
+          } else {
+            _sharedPrefsHelper.saveAuthToken('');
+            _sharedPrefsHelper.saveIsLoggedIn(false);
+            return true;
+          }
+        }).catchError((error) => throw error);
+      } else {
+        return Future.value(false);
+      }
+    });
+  }
+
   Future<void> saveIsLoggedIn(bool value) =>
       _sharedPrefsHelper.saveIsLoggedIn(value);
 
   Future<bool> get isLoggedIn => _sharedPrefsHelper.isLoggedIn;
 
+  Future<void> saveAuthToken(String token) =>
+      _sharedPrefsHelper.saveAuthToken(token);
+
+  Future<String?> get authToken => _sharedPrefsHelper.authToken;
+
   // Register:------------------------------------------------------------------
-  Future<bool> registerUser(String email, String fullName,
-      String password) async {
+  Future<bool> registerUser(
+      String email, String fullName, String password) async {
     return await _registerApi
         .registerUser(email, fullName, password)
         .then((data) {
