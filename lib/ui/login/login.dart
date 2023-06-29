@@ -2,6 +2,8 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/constants/assets.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/data/sharedpref/constants/preferences.dart';
+import 'package:farmacare/models/user/user.dart';
+import 'package:farmacare/stores/user/user_store.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
@@ -28,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //stores:---------------------------------------------------------------------
   late ThemeStore _themeStore;
+  late UserStore _userStore;
 
   //focus node:-----------------------------------------------------------------
   late FocusNode _passwordFocusNode;
@@ -45,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _themeStore = Provider.of<ThemeStore>(context);
+    _userStore = Provider.of<UserStore>(context);
   }
 
   @override
@@ -264,7 +268,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextButton(
         onPressed: () {
           // TODO: Implement Forgot Password
-          Navigator.pushNamed(context, Routes.home);
+          // Navigator.pushNamed(context, Routes.home);
+          Navigator.pushNamed(context, Routes.homeNavigate);
+
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.all(32),
@@ -360,7 +366,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     Future.delayed(Duration(milliseconds: 0), () {
       Navigator.of(context).pushNamedAndRemoveUntil(
-          Routes.home, (Route<dynamic> route) => false);
+          Routes.homeNavigate, (Route<dynamic> route) => false);
     });
 
     return Container();

@@ -1,4 +1,5 @@
 import 'package:farmacare/ui/home/home.dart';
+import 'package:farmacare/ui/home/navigation_home_screen.dart';
 import 'package:farmacare/ui/login/login.dart';
 import 'package:farmacare/ui/register/register.dart';
 import 'package:farmacare/ui/register/role_select.dart';
@@ -10,6 +11,7 @@ import 'package:farmacare/ui/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 import 'package:farmacare/ui/home/post.dart';
+import 'package:farmacare/ui/profile/profile.dart';
 // import 'package:farmacare/ui/reply/replyApp.dart';
 // import 'package:farmacare/ui/reply/reply.dart';
 
@@ -25,7 +27,10 @@ class Routes {
   static const String nameInput = '/register/name';
   static const String professionInput = '/register/profession';
   static const String professionVerif = '/register/profession/verif';
+  
+  static const String homeNavigate = '/homeNavigate';
   static const String home = '/home';
+  static const String profile = '/profile';
   static const String post = '/post';
   static const String reply = '/reply';
   static const String replyHome = '/replyHome';
@@ -39,7 +44,9 @@ class Routes {
     nameInput: (BuildContext context) => NameInputRegisterScreen(),
     professionInput: (BuildContext context) => ProfessionInputRegisterScreen(),
     professionVerif: (BuildContext context) => ProfessionVerifRegisterScreen(),
+    homeNavigate: (BuildContext context) => NavigationHomeScreen(),
     home: (BuildContext context) => HomeScreen(),
+    profile: (BuildContext context) => ProfileScreen(),
     post: (BuildContext context) => PostScreen(),
     // reply: (BuildContext context) => ReplyApp(),
     // replyHome: (BuildContext context) => ReplyPage(),
