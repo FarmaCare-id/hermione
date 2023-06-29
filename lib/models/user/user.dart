@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 part 'role.dart';
 
 class User {
@@ -40,12 +42,14 @@ class User {
     this.deletedAt,
   });
 
+  factory User.fromJson(String str) => User.fromMap(json.decode(str));
+
   factory User.fromMap(Map<String, dynamic> json) => User(
         id: json["data"]["id"],
         email: json["data"]["email"],
         fullName: json["data"]["fullName"],
         hashedPassword: json["data"]["hashedPassword"],
-        // role: Role.fromMap(json["data"]["role"]),
+        role: Role.fromMap(json["data"]["role"]),
         weight: json["data"]["weight"],
         height: json["data"]["height"],
         age: json["data"]["age"],
