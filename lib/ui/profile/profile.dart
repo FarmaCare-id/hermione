@@ -1,4 +1,6 @@
+import 'package:farmacare/data/repository.dart';
 import 'package:farmacare/data/sharedpref/constants/preferences.dart';
+import 'package:farmacare/di/components/service_locator.dart';
 import 'package:farmacare/stores/user/user_store.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/stores/language/language_store.dart';
@@ -10,16 +12,19 @@ import 'package:material_dialog/material_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>{
+class _ProfileScreenState extends State<ProfileScreen> {
   //stores:---------------------------------------------------------------------
   late ThemeStore _themeStore;
   late LanguageStore _languageStore;
   late UserStore _userStore;
+
+  // repository instance
+  final Repository _repository = getIt<Repository>();
 
   @override
   void initState() {
@@ -47,29 +52,17 @@ class _HomeScreenState extends State<HomeScreen>{
   // app bar methods:-----------------------------------------------------------
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      // title: Text("Home"),
+      title: Text("Profile"),
       actions: _buildActions(context),
     );
   }
 
   List<Widget> _buildActions(BuildContext context) {
     return <Widget>[
-      _buildProfileButton(),
       _buildLanguageButton(),
       _buildThemeButton(),
       _buildLogoutButton(),
     ];
-  }
-
-  Widget _buildProfileButton() {
-    return IconButton(
-      onPressed: () {
-        Navigator.of(context).pushNamed(Routes.profile);
-      },
-      icon: Icon(
-        Icons.person,
-      ),
-    );
   }
 
   Widget _buildThemeButton() {
@@ -90,9 +83,13 @@ class _HomeScreenState extends State<HomeScreen>{
   Widget _buildLogoutButton() {
     return IconButton(
       onPressed: () {
-        _userStore.logout(_userStore.authToken);
-        Navigator.of(context).pushReplacementNamed(Routes.login);
-      
+        SharedPreferences.getInstance().then((preference) {
+          // remove token and logged in status
+          preference.setString(Preferences.auth_token, '');
+          preference.setBool(Preferences.is_logged_in, false);
+
+          Navigator.of(context).pushReplacementNamed(Routes.login);
+        });
       },
       icon: Icon(
         Icons.power_settings_new,
@@ -127,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Welcome to FarmaCare!',
+              _userStore.authToken + " " + _userStore.isLoggedIn.toString(),
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -146,9 +143,6 @@ class _HomeScreenState extends State<HomeScreen>{
                 // Navigator.of(context).pushNamed(Routes.replyHome);
               },
               child: Text('Mail App'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.green),
-              ),
             ),
           ],
         ),
