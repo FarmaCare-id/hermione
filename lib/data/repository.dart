@@ -75,8 +75,8 @@ class Repository {
       .catchError((error) => throw error);
 
   // Profile: ------------------------------------------------------------------
-  Future<User> getProfile() async {
-    return await _profileApi.getProfile().then((user) {
+  Future<User> getProfile(String authToken) async {
+    return await _profileApi.getProfile(authToken).then((user) {
       return user;
     }).catchError((error) => throw error);
   }

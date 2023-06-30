@@ -31,6 +31,21 @@ mixin _$UserStore on _UserStore, Store {
     });
   }
 
+  late final _$userAtom = Atom(name: '_UserStore.user', context: context);
+
+  @override
+  User? get user {
+    _$userAtom.reportRead();
+    return super.user;
+  }
+
+  @override
+  set user(User? value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
+    });
+  }
+
   late final _$loginFutureAtom =
       Atom(name: '_UserStore.loginFuture', context: context);
 
@@ -55,10 +70,27 @@ mixin _$UserStore on _UserStore, Store {
     return _$loginAsyncAction.run(() => super.login(email, password));
   }
 
+  late final _$logoutAsyncAction =
+      AsyncAction('_UserStore.logout', context: context);
+
+  @override
+  Future<dynamic> logout(String token) {
+    return _$logoutAsyncAction.run(() => super.logout(token));
+  }
+
+  late final _$getProfileAsyncAction =
+      AsyncAction('_UserStore.getProfile', context: context);
+
+  @override
+  Future<dynamic> getProfile() {
+    return _$getProfileAsyncAction.run(() => super.getProfile());
+  }
+
   @override
   String toString() {
     return '''
 success: ${success},
+user: ${user},
 loginFuture: ${loginFuture},
 isLoading: ${isLoading}
     ''';

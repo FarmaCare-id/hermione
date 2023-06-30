@@ -15,9 +15,16 @@ class ProfileApi {
   ProfileApi(this._dioClient);
 
   /// Returns list of post in response
-  Future<User> getProfile() async {
+  Future<User> getProfile(String token) async {
+    final header = {
+      'Authorization': token,
+    };
     try {
-      final res = await _dioClient.get(Endpoints.profile);
+      final res =
+          await _dioClient.get(Endpoints.profile, queryParameters: header);
+      print('test: ');
+      print(res);
+      print("end test");
       return User.fromJson(res);
     } catch (e) {
       print(e.toString());

@@ -1,4 +1,6 @@
+import 'package:farmacare/models/user/user.dart';
 import 'package:farmacare/stores/error/error_store.dart';
+import 'package:farmacare/utils/dio/dio_error_util.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../data/repository.dart';
@@ -35,6 +37,8 @@ abstract class _UserStore with Store {
       repository.authToken.then((value) {
         this.authToken = value!;
       });
+
+      getProfile();
     });
   }
 
@@ -54,6 +58,9 @@ abstract class _UserStore with Store {
   // store variables:-----------------------------------------------------------
   @observable
   bool success = false;
+
+  @observable
+  User? user;
 
   @observable
   ObservableFuture<bool> loginFuture = emptyLoginResponse;
@@ -84,6 +91,7 @@ abstract class _UserStore with Store {
     });
   }
 
+  @action
   Future logout(String token) async {
     final future = _repository.logout(token);
 
@@ -102,6 +110,16 @@ abstract class _UserStore with Store {
       this.isLoggedIn = true;
       this.success = false;
       throw e;
+    });
+  }
+
+  @action
+  Future getProfile() async {
+    final future = _repository.getProfile(this.authToken);
+    future.then((user) {
+      this.user = user;
+    }).catchError((e) {
+      errorStore.errorMessage = DioErrorUtil.handleError(e);
     });
   }
 
