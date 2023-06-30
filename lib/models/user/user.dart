@@ -1,14 +1,12 @@
-import 'dart:convert';
-
 part 'role.dart';
 
 class User {
   // TODO: add user login type & fix nullable attribute
   int? id;
-  int? email;
+  String? email;
   String? fullName;
-  String? hashedPassword;
-  Role? role;
+  // String? hashedPassword;
+  String? role;
   // LoginType userLoginType
   int? weight;
   int? height;
@@ -20,15 +18,15 @@ class User {
   String? specialist;
   String? title;
 
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? deletedAt;
+  // DateTime? createdAt;
+  // DateTime? updatedAt;
+  // DateTime? deletedAt;
 
   User({
     this.id,
     this.email,
     this.fullName,
-    this.hashedPassword,
+    // this.hashedPassword,
     this.role,
     this.weight,
     this.height,
@@ -37,19 +35,19 @@ class User {
     this.noSipa,
     this.specialist,
     this.title,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
+    // this.createdAt,
+    // this.updatedAt,
+    // this.deletedAt,
   });
 
-  factory User.fromJson(String str) => User.fromMap(json.decode(str));
+  // factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
-  factory User.fromMap(Map<String, dynamic> json) => User(
+  factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["data"]["id"],
         email: json["data"]["email"],
-        fullName: json["data"]["fullName"],
-        hashedPassword: json["data"]["hashedPassword"],
-        role: Role.fromMap(json["data"]["role"]),
+        fullName: json["data"]["fullname"],
+        // hashedPassword: json["data"]["hashedPassword"],
+        role: json["data"]["role"],
         weight: json["data"]["weight"],
         height: json["data"]["height"],
         age: json["data"]["age"],
@@ -57,17 +55,17 @@ class User {
         noSipa: json["data"]["noSipa"],
         specialist: json["data"]["specialist"],
         title: json["data"]["title"],
-        createdAt: DateTime.parse(json["data"]["createdAt"]),
-        updatedAt: DateTime.parse(json["data"]["updatedAt"]),
-        deletedAt: DateTime.parse(json["data"]["deletedAt"]),
-      );
+        // createdAt: DateTime.parse(json["data"]["createdAt"]),
+        // updatedAt: DateTime.parse(json["data"]["updatedAt"]),
+        // deletedAt: DateTime.parse(json["data"]["deletedAt"]),
+  );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "email": email,
         "fullName": fullName,
-        "hashedPassword": hashedPassword,
-        // "role": role!.toMap(),
+        // "hashedPassword": hashedPassword,
+        "role": role,
         "weight": weight,
         "height": height,
         "age": age,
@@ -75,8 +73,8 @@ class User {
         "noSipa": noSipa,
         "specialist": specialist,
         "title": title,
-        "createdAt": createdAt!.toIso8601String(),
-        "updatedAt": updatedAt!.toIso8601String(),
-        "deletedAt": deletedAt!.toIso8601String(),
+        // "createdAt": createdAt!.toIso8601String(),
+        // "updatedAt": updatedAt!.toIso8601String(),
+        // "deletedAt": deletedAt!.toIso8601String(),
       };
 }

@@ -130,6 +130,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            Text(
+              _userStore.user?.fullName ?? "No name",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
