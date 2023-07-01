@@ -131,25 +131,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             Text(
-              _userStore.user?.fullName ?? "No name",
+              _userStore.user?.fullName ?? "User is null",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(Routes.post);
-              },
-              child: Text('Post Page'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navigator.of(context).pushNamed(Routes.replyHome);
-              },
-              child: Text('Mail App'),
             ),
           ],
         ),

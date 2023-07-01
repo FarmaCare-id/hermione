@@ -24,7 +24,7 @@ abstract class _UserStore with Store {
   bool isLoggedIn = false;
 
   // auth token
-  String authToken = 'kosong';
+  String authToken = '';
 
   // constructor:---------------------------------------------------------------
   _UserStore(Repository repository) : this._repository = repository {
@@ -38,7 +38,9 @@ abstract class _UserStore with Store {
         this.authToken = value!;
       });
 
-      getProfile();
+      if (value) {
+        getProfile();
+      }
     });
   }
 
@@ -78,6 +80,7 @@ abstract class _UserStore with Store {
         _repository.saveIsLoggedIn(true);
         _repository.saveAuthToken(value);
         this.authToken = value;
+        getProfile();
         this.isLoggedIn = true;
         this.success = true;
       } else {
@@ -99,6 +102,7 @@ abstract class _UserStore with Store {
       if (value) {
         _repository.saveIsLoggedIn(false);
         _repository.saveAuthToken('');
+        this.user = null;
         this.authToken = '';
         this.isLoggedIn = false;
         this.success = true;
