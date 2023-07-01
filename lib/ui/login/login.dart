@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late FocusNode _passwordFocusNode;
 
   //stores:---------------------------------------------------------------------
-  final _store = FormStore();
+  final _formStore = FormStore();
 
   @override
   void initState() {
@@ -81,15 +81,15 @@ class _LoginScreenState extends State<LoginScreen> {
               : Center(child: _buildRightSide()),
           Observer(
             builder: (context) {
-              return _store.success
+              return _formStore.success
                   ? navigate(context)
-                  : _showErrorMessage(_store.errorStore.errorMessage);
+                  : _showErrorMessage(_formStore.errorStore.errorMessage);
             },
           ),
           Observer(
             builder: (context) {
               return Visibility(
-                visible: _store.loading,
+                visible: _formStore.loading,
                 child: CustomProgressIndicatorWidget(),
               );
             },
@@ -217,14 +217,14 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.userEmail,
+            errorText: _formStore.formErrorStore.userEmail,
           ),
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           controller: _userEmailController,
           autofocus: false,
           onChanged: (value) {
-            _store.setUserEmail(_userEmailController.text);
+            _formStore.setUserEmail(_userEmailController.text);
           },
           onSubmitted: (value) {
             FocusScope.of(context).requestFocus(_passwordFocusNode);
@@ -249,13 +249,13 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            errorText: _store.formErrorStore.password,
+            errorText: _formStore.formErrorStore.password,
           ),
           obscureText: true,
           controller: _passwordController,
           focusNode: _passwordFocusNode,
           onChanged: (value) {
-            _store.setPassword(_passwordController.text);
+            _formStore.setPassword(_passwordController.text);
           },
         );
       },
@@ -307,9 +307,9 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       child: MaterialButton(
         onPressed: () async {
-          if (_store.canLogin) {
+          if (_formStore.canLogin) {
             DeviceUtils.hideKeyboard(context);
-            _store.login();
+            _formStore.login(_userStore);
           } else {
             _showErrorMessage('Please fill in all fields');
           }

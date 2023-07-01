@@ -15,11 +15,9 @@ abstract class _FormStore with Store {
 
   // store for handling error messages
   final ErrorStore errorStore = ErrorStore();
-  late UserStore _userStore;
 
   _FormStore() {
     _setupValidations();
-    _userStore = getIt<UserStore>();
   }
 
   // disposers:-----------------------------------------------------------------
@@ -252,11 +250,11 @@ abstract class _FormStore with Store {
   }
 
   @action
-  Future login() async {
+  Future login(UserStore userStore) async {
     loading = true;
 
     try {
-      final response = await getIt.get<UserStore>().login(userEmail, password);
+      final response = await userStore.login(userEmail, password);
       loading = false;
       success = true;
       return response;
@@ -264,8 +262,8 @@ abstract class _FormStore with Store {
       loading = false;
       success = false;
       errorStore.errorMessage = error
-          .toString()
-          .contains("ERROR_USER_NOT_FOUND")
+              .toString()
+              .contains("ERROR_USER_NOT_FOUND")
           ? "Username and password doesn't match"
           : "Something went wrong, please check your internet connection and try again";
     }
