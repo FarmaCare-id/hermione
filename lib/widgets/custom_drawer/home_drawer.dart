@@ -1,6 +1,8 @@
 // import 'package:best_flutter_ui_templates/app_theme.dart';
 import 'package:farmacare/constants/colors.dart';
+import 'package:farmacare/stores/user/user_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // part of 'drawer_user_controller.dart';
 
@@ -22,6 +24,9 @@ class HomeDrawer extends StatefulWidget {
 
 class _HomeDrawerState extends State<HomeDrawer> {
   List<DrawerList>? drawerList;
+
+  late UserStore _userStore = Provider.of<UserStore>(context);
+
   @override
   void initState() {
     setDrawerListArray();
@@ -122,7 +127,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 4),
                     child: Text(
-                      'Eugenius Vicky Wijaksara',
+                      _userStore.user?.fullName ?? "User is null",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: isLightMode ? AppColors.grey : AppColors.white,

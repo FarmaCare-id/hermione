@@ -1,16 +1,10 @@
-import 'package:farmacare/data/repository.dart';
-import 'package:farmacare/data/sharedpref/constants/preferences.dart';
-import 'package:farmacare/di/components/service_locator.dart';
+import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
-import 'package:farmacare/utils/routes/routes.dart';
+import 'package:farmacare/ui/home/home.dart';
 import 'package:farmacare/stores/language/language_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
-import 'package:farmacare/utils/locale/app_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:material_dialog/material_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -19,12 +13,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   //stores:---------------------------------------------------------------------
-  late ThemeStore _themeStore;
-  late LanguageStore _languageStore;
   late UserStore _userStore;
-
-  // repository instance
-  final Repository _repository = getIt<Repository>();
 
   @override
   void initState() {
@@ -36,75 +25,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.didChangeDependencies();
 
     // initializing stores
-    _languageStore = Provider.of<LanguageStore>(context);
-    _themeStore = Provider.of<ThemeStore>(context);
     _userStore = Provider.of<UserStore>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      // backgroundColor: AppColors.orange400,
+      appBar: AppBar(
+        backgroundColor: AppColors.orange400,
+      ),
       body: _buildBody(),
-    );
-  }
-
-  // app bar methods:-----------------------------------------------------------
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text("Profile"),
-      actions: _buildActions(context),
-    );
-  }
-
-  List<Widget> _buildActions(BuildContext context) {
-    return <Widget>[
-      _buildLanguageButton(),
-      _buildThemeButton(),
-      _buildLogoutButton(),
-    ];
-  }
-
-  Widget _buildThemeButton() {
-    return Observer(
-      builder: (context) {
-        return IconButton(
-          onPressed: () {
-            _themeStore.changeBrightnessToDark(!_themeStore.darkMode);
-          },
-          icon: Icon(
-            _themeStore.darkMode ? Icons.brightness_5 : Icons.brightness_3,
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildLogoutButton() {
-    return IconButton(
-      onPressed: () {
-        SharedPreferences.getInstance().then((preference) {
-          // remove token and logged in status
-          preference.setString(Preferences.auth_token, '');
-          preference.setBool(Preferences.is_logged_in, false);
-
-          Navigator.of(context).pushReplacementNamed(Routes.login);
-        });
-      },
-      icon: Icon(
-        Icons.power_settings_new,
-      ),
-    );
-  }
-
-  Widget _buildLanguageButton() {
-    return IconButton(
-      onPressed: () {
-        _buildLanguageDialog();
-      },
-      icon: Icon(
-        Icons.language,
-      ),
     );
   }
 
@@ -112,91 +43,241 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildBody() {
     return Stack(
       children: <Widget>[
-        _buildMainContent(context),
+        Container(
+          height: 300,
+          decoration: BoxDecoration(
+            color: AppColors.orange400,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+          ),
+          child: _buildHeader(context),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 50),
+          margin: EdgeInsets.only(top: 230),
+          child: _buildCard(context),
+        ),
       ],
     );
   }
 
-  Widget _buildMainContent(context) {
-    return Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              _userStore.authToken + " " + _userStore.isLoggedIn.toString(),
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+  Widget _buildCard(context) {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                offset: Offset(0, 10),
+                blurRadius: 10,
               ),
-            ),
-            Text(
-              _userStore.user?.fullName ?? "User is null",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(
+                'First Name',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.greyLabel,
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildLanguageDialog() {
-    _showDialog<String>(
-      context: context,
-      child: MaterialDialog(
-        borderRadius: 5.0,
-        enableFullWidth: true,
-        title: Text(
-          AppLocalizations.of(context).translate('home_tv_choose_language'),
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.0,
+              Text(
+                _userStore.user?.email ?? "User is null",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10, bottom: 10),
+                height: 1,
+                color: AppColors.greyLabel,
+              ),
+              Text(
+                'Last Name',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.greyLabel,
+                ),
+              ),
+              Text(
+                _userStore.user?.email ?? "User is null",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ),
-        headerColor: Theme.of(context).primaryColor,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        closeButtonColor: Colors.white,
-        enableCloseButton: true,
-        enableBackButton: false,
-        onCloseButtonClicked: () {
-          Navigator.of(context).pop();
-        },
-        children: _languageStore.supportedLanguages
-            .map(
-              (object) => ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.all(0.0),
-                title: Text(
-                  object.language!,
-                  style: TextStyle(
-                    color: _languageStore.locale == object.locale
-                        ? Theme.of(context).primaryColor
-                        : _themeStore.darkMode
-                            ? Colors.white
-                            : Colors.black,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  // change user language based on selected locale
-                  _languageStore.changeLanguage(object.locale!);
-                },
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(1),
+                offset: Offset(0, 10),
+                blurRadius: 20,
               ),
-            )
-            .toList(),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(
+                'Age',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.greyLabel,
+                ),
+              ),
+              Text(
+                _userStore.user?.age.toString()  ?? "User is null",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10, bottom: 10),
+                height: 1,
+                color: AppColors.greyLabel,
+              ),
+              Text(
+                'Weight',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.greyLabel,
+                ),
+              ),
+              Text(
+                _userStore.user?.weight.toString() ?? "User is null",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10, bottom: 10),
+                height: 1,
+                color: AppColors.greyLabel,
+              ),
+              Text(
+                'Height',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.greyLabel,
+                ),
+              ),
+              Text(
+                _userStore.user?.height.toString() ?? "User is null",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildEditButton(context),
+          ],
+        ),  
+      ],
+    );
+  }
+
+  Widget _buildEditButton(context) {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
+        },
+        child: Text(
+          'Edit Profile',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.orange400,
+          padding: EdgeInsets.symmetric(vertical: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
       ),
     );
   }
 
-  _showDialog<T>({required BuildContext context, required Widget child}) {
-    showDialog<T>(
-      context: context,
-      builder: (BuildContext context) => child,
-    ).then<void>((T? value) {
-      // The value passed to Navigator.pop() or null.
-    });
+  Widget _buildHeader(context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.person,
+              size: 50,
+              color: AppColors.orange400,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            _userStore.user?.fullName ?? "User is null",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            _userStore.user?.role ?? "email is null",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
