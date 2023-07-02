@@ -4,6 +4,7 @@ import '../../widgets/custom_drawer/home_drawer.dart';
 import '../../widgets/custom_drawer/drawer_user_controller.dart';
 import 'package:farmacare/ui/home/home.dart';
 import 'package:farmacare/ui/feedback/feedback.dart';
+import 'package:farmacare/ui/help/help.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
   @override
@@ -54,11 +55,11 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
             screenView = HomeScreen();
           });
           break;
-        // case DrawerIndex.Help:
-        //   setState(() {
-        //     screenView = HelpScreen();
-        //   });
-        //   break;
+        case DrawerIndex.Help:
+          setState(() {
+            screenView = HelpScreen();
+          });
+          break;
         case DrawerIndex.FeedBack:
           setState(() {
             screenView = FeedbackScreen();
