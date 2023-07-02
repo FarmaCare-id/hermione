@@ -5,6 +5,7 @@ import '../../widgets/custom_drawer/drawer_user_controller.dart';
 import 'package:farmacare/ui/home/home.dart';
 import 'package:farmacare/ui/feedback/feedback.dart';
 import 'package:farmacare/ui/help/help.dart';
+import 'package:farmacare/ui/invite/invite.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
   @override
@@ -65,11 +66,11 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
             screenView = FeedbackScreen();
           });
           break;
-        // case DrawerIndex.Invite:
-        //   setState(() {
-        //     screenView = InviteFriend();
-        //   });
-        //   break;
+        case DrawerIndex.Invite:
+          setState(() {
+            screenView = InviteFriend();
+          });
+          break;
         default:
           break;
       }
