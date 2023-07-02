@@ -1,15 +1,9 @@
-// import 'package:best_flutter_ui_templates/app_theme.dart';
-// import 'package:best_flutter_ui_templates/custom_drawer/drawer_user_controller.dart';
-// import 'package:best_flutter_ui_templates/custom_drawer/home_drawer.dart';
-// import 'package:best_flutter_ui_templates/feedback_screen.dart';
-// import 'package:best_flutter_ui_templates/help_screen.dart';
-// import 'package:best_flutter_ui_templates/home_screen.dart';
-// import 'package:best_flutter_ui_templates/invite_friend_screen.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/custom_drawer/home_drawer.dart';
 import '../../widgets/custom_drawer/drawer_user_controller.dart';
 import 'package:farmacare/ui/home/home.dart';
+import 'package:farmacare/ui/feedback/feedback.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
   @override
@@ -65,11 +59,11 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         //     screenView = HelpScreen();
         //   });
         //   break;
-        // case DrawerIndex.FeedBack:
-        //   setState(() {
-        //     screenView = FeedbackScreen();
-        //   });
-        //   break;
+        case DrawerIndex.FeedBack:
+          setState(() {
+            screenView = FeedbackScreen();
+          });
+          break;
         // case DrawerIndex.Invite:
         //   setState(() {
         //     screenView = InviteFriend();

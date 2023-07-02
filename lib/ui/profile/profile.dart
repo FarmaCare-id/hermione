@@ -216,12 +216,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       margin: EdgeInsets.only(top: 20),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(),
-            ),
-          );
+          // // Navigator.push(
+          // //   context,
+          // //   MaterialPageRoute(
+          // //     builder: (context) => HomeScreen(),
+          // //   ),
+          // );
         },
         child: Text(
           'Edit Profile',
