@@ -1,5 +1,6 @@
-import 'package:farmacare/data/sharedpref/constants/preferences.dart';
+import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
+import 'package:farmacare/utils/device/device_utils.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/stores/language/language_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:material_dialog/material_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildBody(),
+      // body: _buildBody(),
     );
   }
 
@@ -113,19 +113,137 @@ class _HomeScreenState extends State<HomeScreen>{
 
   // body methods:--------------------------------------------------------------
   Widget _buildBody() {
-    return Stack(
-      children: <Widget>[
-        _buildMainContent(context),
-      ],
+    return SingleChildScrollView(
+        child: SafeArea(child: _buildMainContent(context)),
     );
   }
 
   Widget _buildMainContent(context) {
     return Container(
-      child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: DeviceUtils.getScaledWidth(context, 0.1)),
+              child: Row(
+                children: [
+                  Text(
+                    'Hello,\n${_userStore.user?.fullName}!',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                      'https://shutterstock.com/image-photo/portrait-smiling-red-haired-millennial-260nw-1194497251.jpg',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // create a separator line
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Divider(
+                thickness: 1,
+                color: AppColors.greyLabel
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: GridView(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 1,
+                  mainAxisSpacing: 1,
+                  crossAxisCount: 4,
+                ),
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.bluePeriwinkle,
+                        ),
+                        child: Image.asset(
+                          'assets/icons/ic_drugs.png',
+                          // fit: BoxFit.contain,
+                        ),
+                      ),
+                      Text('Drugs')
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.bluePeriwinkle,
+                        ),
+                        child: Image.asset(
+                          'assets/icons/ic_drugs.png',
+                          // fit: BoxFit.contain,
+                        ),
+                      ),
+                      Text('Drugs')
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.bluePeriwinkle,
+                        ),
+                        child: Image.asset(
+                          'assets/icons/ic_drugs.png',
+                          // fit: BoxFit.contain,
+                        ),
+                      ),
+                      Text('Drugs')
+                    ],
+                  ),
+                  Card(
+                    child: ListTile(
+                      title: Text('Item 4'),
+                      subtitle: Text('Subtitle 4'),
+                      trailing: Icon(Icons.more_vert),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            AnimatedList(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              initialItemCount: 2,
+              itemBuilder: (context, index, animation) {
+                return SizeTransition(
+                  sizeFactor: animation,
+                  child: Card(
+                    child: ListTile(
+                      title: Text('Item $index'),
+                      subtitle: Text('Subtitle $index'),
+                      trailing: Icon(Icons.more_vert),
+                    ),
+                  ),
+                );
+              },
+            ),
+            ExpandIcon(
+              onPressed: (value) {
+                print(value);
+              },
+              isExpanded: true,
+            ),
             Text(
               'Welcome to FarmaCare!',
               style: TextStyle(
