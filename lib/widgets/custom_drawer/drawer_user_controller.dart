@@ -9,7 +9,7 @@ class DrawerUserController extends StatefulWidget {
     this.drawerWidth = 250,
     this.onDrawerCall,
     this.screenView,
-    this.animatedIconData = AnimatedIcons.arrow_menu,
+    // this.animatedIconData = AnimatedIcons.search_ellipsis,
     this.menuView,
     this.drawerIsOpen,
     this.screenIndex,
@@ -19,7 +19,7 @@ class DrawerUserController extends StatefulWidget {
   final Function(DrawerIndex)? onDrawerCall;
   final Widget? screenView;
   final Function(bool)? drawerIsOpen;
-  final AnimatedIconData? animatedIconData;
+  // final AnimatedIconData? animatedIconData;
   final Widget? menuView;
   final DrawerIndex? screenIndex;
 
@@ -163,39 +163,39 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                           },
                         ),
                       // this just menu and arrow icon animation
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).padding.top + 8,
-                            left: 8),
-                        child: SizedBox(
-                          width: AppBar().preferredSize.height - 8,
-                          height: AppBar().preferredSize.height - 8,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(
-                                  AppBar().preferredSize.height),
-                              child: Center(
-                                // if you use your own menu view UI you add form initialization
-                                child: widget.menuView != null
-                                    ? widget.menuView
-                                    : AnimatedIcon(
-                                        color: isLightMode
-                                            ? AppColors.dark_grey
-                                            : AppColors.white,
-                                        icon: widget.animatedIconData ??
-                                            AnimatedIcons.arrow_menu,
-                                        progress: iconAnimationController!),
-                              ),
-                              onTap: () {
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                onDrawerClick();
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(
+                      //       top: MediaQuery.of(context).padding.top + 8,
+                      //       left: 8),
+                      //   child: SizedBox(
+                      //     width: AppBar().preferredSize.height - 8,
+                      //     height: AppBar().preferredSize.height - 8,
+                      //     child: Material(
+                      //       color: Colors.transparent,
+                      //       child: InkWell(
+                      //         borderRadius: BorderRadius.circular(
+                      //             AppBar().preferredSize.height),
+                      //         child: Center(
+                      //           // if you use your own menu view UI you add form initialization
+                      //           child: widget.menuView != null
+                      //               ? widget.menuView
+                      //               : AnimatedIcon(
+                      //                   color: isLightMode
+                      //                       ? AppColors.dark_grey
+                      //                       : AppColors.white,
+                      //                   icon: widget.animatedIconData ??
+                      //                       AnimatedIcons.arrow_menu,
+                      //                   progress: iconAnimationController!),
+                      //         ),
+                      //         onTap: () {
+                      //           FocusScope.of(context)
+                      //               .requestFocus(FocusNode());
+                      //           onDrawerClick();
+                      //         },
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
