@@ -22,9 +22,8 @@ class ProfileApi {
     try {
       final res =
           await _dioClient.get(Endpoints.profile, queryParameters: header);
-      print('test: ');
+      // TODO: remove
       print(res);
-      print("end test");
       return User.fromJson(res);
     } catch (e) {
       print(e.toString());
