@@ -1,6 +1,7 @@
 // import 'package:best_flutter_ui_templates/app_theme.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
+import 'package:farmacare/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -178,7 +179,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   color: Colors.red,
                 ),
                 onTap: () {
-                  onTapped();
+                  // onTapped();
+                  _userStore.logout(_userStore.authToken);
+                  Navigator.of(context).pushReplacementNamed(Routes.login);
                 },
               ),
               SizedBox(
