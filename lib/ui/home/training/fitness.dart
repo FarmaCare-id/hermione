@@ -1,15 +1,9 @@
-// import 'package:best_flutter_ui_templates/fitness_app/models/tabIcon_data.dart';
 import 'package:farmacare/models/icon/tabIcon.dart';
-// import 'package:best_flutter_ui_templates/fitness_app/training/training_screen.dart';
 import 'package:farmacare/constants/colors.dart';
-import 'package:farmacare/stores/user/user_store.dart';
 import 'package:farmacare/ui/profile/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'training.dart';
 import 'package:farmacare/widgets/bottom_navigation_view/bottom_bar_view.dart';
-// import 'bottom_navigation_view/bottom_bar_view.dart';
-// import 'my_diary/my_diary_screen.dart';
 
 class FitnessAppHomeScreen extends StatefulWidget {
   @override

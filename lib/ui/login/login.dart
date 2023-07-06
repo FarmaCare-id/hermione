@@ -2,7 +2,6 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:farmacare/constants/assets.dart';
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/data/sharedpref/constants/preferences.dart';
-import 'package:farmacare/models/user/user.dart';
 import 'package:farmacare/stores/user/user_store.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:farmacare/stores/form/form_store.dart';

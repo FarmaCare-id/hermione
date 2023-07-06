@@ -2,7 +2,6 @@ import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
 import 'package:provider/provider.dart';
 import 'area_list_view.dart';
-import 'running_view.dart';
 import 'title_view.dart';
 import 'workout_view.dart';
 import 'package:flutter/material.dart';
