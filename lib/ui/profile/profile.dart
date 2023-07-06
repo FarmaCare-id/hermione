@@ -1,8 +1,5 @@
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
-import 'package:farmacare/ui/home/home.dart';
-import 'package:farmacare/stores/language/language_store.dart';
-import 'package:farmacare/stores/theme/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       // backgroundColor: AppColors.orange400,
       appBar: AppBar(
-        backgroundColor: AppColors.orange400,
+        backgroundColor: AppColors.bluePeriwinkle,
       ),
       body: _buildBody(),
     );
@@ -46,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Container(
           height: 300,
           decoration: BoxDecoration(
-            color: AppColors.orange400,
+            color: AppColors.bluePeriwinkle,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
@@ -232,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.orange400,
+          backgroundColor: AppColors.bluePeriwinkle,
           padding: EdgeInsets.symmetric(vertical: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -253,7 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Icon(
               Icons.person,
               size: 50,
-              color: AppColors.orange400,
+              color: AppColors.bluePeriwinkle,
             ),
           ),
           SizedBox(height: 10),
