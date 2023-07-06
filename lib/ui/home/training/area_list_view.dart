@@ -80,27 +80,12 @@ class _AreaListViewState extends State<AreaListView>
                         ),
                       );
                       animationController?.forward();
-                      return Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        AreaView(
-                          imagepath: areaListData[index],
-                          animation: animation,
-                          animationController: animationController!,
-                        ),
-                        Positioned(
-                          bottom: 7,
-                          child: Text(
-                            areaNameData[index], // Replace with the desired text
-                            style: TextStyle(
-                              fontFamily: AppColors.fontName,
-                              fontSize: 14,
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
+                      return AreaView(
+                        imagepath: areaListData[index],
+                        label: areaNameData[index],
+                        animation: animation,
+                        animationController: animationController!,
+                      );
                     },
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -123,11 +108,13 @@ class AreaView extends StatelessWidget {
   const AreaView({
     Key? key,
     this.imagepath,
+    this.label,
     this.animationController,
     this.animation,
   }) : super(key: key);
 
   final String? imagepath;
+  final String? label;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -141,51 +128,67 @@ class AreaView extends StatelessWidget {
           child: Transform(
             transform: Matrix4.translationValues(
                 0.0, 50 * (1.0 - animation!.value), 0.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      color: AppColors.grey.withOpacity(0.4),
-                      offset: const Offset(1.1, 1.1),
-                      blurRadius: 10.0),
-                ],
-              ),
-              child: Material(
-                color: AppColors.bluePeriwinkle,
-                borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                child: InkWell(
-                  focusColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                  splashColor: AppColors.nearlyDarkBlue.withOpacity(0.2),
-                  onTap: () {
-                    // TODO: Add navigation
-                    print('AreaView');
-                  },
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 16, left: 16, right: 16),
-                        child: Image.asset(imagepath!),
-                      ),
-                      // Text(
-                      //   'Area',
-                      //   textAlign: TextAlign.center,
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.w600,
-                      //     fontSize: 12,
-                      //     letterSpacing: 0.27,
-                      //     color: AppColors.nearlyDarkBlue,
-                      //   ),
-                      // )
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: AppColors.grey.withOpacity(0.4),
+                          offset: const Offset(1.1, 1.1),
+                          blurRadius: 10.0),
                     ],
                   ),
+                  child: Material(
+                    color: AppColors.bluePeriwinkle,
+                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                    child: InkWell(
+                      focusColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                      splashColor: AppColors.nearlyDarkBlue.withOpacity(0.2),
+                      onTap: () {
+                        // TODO: Add navigation
+                        print('AreaView');
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 16, left: 16, right: 16),
+                            child: Image.asset(imagepath!),
+                          ),
+                          // Text(
+                          //   'Area',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.w600,
+                          //     fontSize: 12,
+                          //     letterSpacing: 0.27,
+                          //     color: AppColors.nearlyDarkBlue,
+                          //   ),
+                          // )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  bottom: 7,
+                  child: Text(
+                    label!, 
+                    style: TextStyle(
+                      fontFamily: AppColors.fontName,
+                      fontSize: 14,
+                      color: AppColors.white,
+                    ),
+                  ),
+                ),
+              ]
             ),
           ),
         );
