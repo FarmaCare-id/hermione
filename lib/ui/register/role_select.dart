@@ -4,9 +4,7 @@ import 'package:farmacare/stores/form/form_store.dart';
 import 'package:farmacare/stores/theme/theme_store.dart';
 import 'package:farmacare/utils/locale/app_localization.dart';
 import 'package:farmacare/utils/routes/routes.dart';
-import 'package:farmacare/widgets/empty_app_bar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class RoleScreen extends StatefulWidget {
