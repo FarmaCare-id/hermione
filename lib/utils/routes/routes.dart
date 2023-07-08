@@ -1,3 +1,9 @@
+import 'package:farmacare/ui/appointment/appointment.dart';
+import 'package:farmacare/ui/assistant/assistant.dart';
+import 'package:farmacare/ui/community/community.dart';
+import 'package:farmacare/ui/delivery/delivery.dart';
+import 'package:farmacare/ui/drugs/drugs.dart';
+import 'package:farmacare/ui/feedback/feedback.dart';
 import 'package:farmacare/ui/home/home.dart';
 import 'package:farmacare/ui/home/navigation_home_screen.dart';
 import 'package:farmacare/ui/login/login.dart';
@@ -8,6 +14,7 @@ import 'package:farmacare/ui/register/profession_select.dart';
 import 'package:farmacare/ui/register/profession_verif.dart';
 import 'package:farmacare/ui/landing/landing.dart';
 import 'package:farmacare/ui/splash/splash.dart';
+import 'package:farmacare/ui/wiki/wiki.dart';
 import 'package:flutter/material.dart';
 
 import 'package:farmacare/ui/home/post.dart';
@@ -35,6 +42,14 @@ class Routes {
   static const String reply = '/reply';
   static const String replyHome = '/replyHome';
 
+  static const String drugs = '/drugs';
+  static const String wiki = '/wiki';
+  static const String assistant = '/assistant';
+  static const String delivery = '/delivery';
+  static const String appointment = '/appointment';
+  static const String community = '/community';
+  static const String feedback = '/feedback';
+
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
     landing: (BuildContext context) => LandingScreen(),
@@ -48,6 +63,14 @@ class Routes {
     home: (BuildContext context) => HomeScreen(),
     profile: (BuildContext context) => ProfileScreen(),
     post: (BuildContext context) => PostScreen(),
+
+    drugs : (BuildContext context) => DrugsScreen(),
+    wiki: (BuildContext context) => WikiScreen(),
+    assistant: (BuildContext context) => AssistantScreen(),
+    delivery: (BuildContext context) => DeliveryScreen(),
+    appointment: (BuildContext context) => AppointmentScreen(),
+    community: (BuildContext context) => CommunityScreen(),
+    feedback: (BuildContext context) => FeedbackScreen(),
     // reply: (BuildContext context) => ReplyApp(),
     // replyHome: (BuildContext context) => ReplyPage(),
   };
