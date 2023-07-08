@@ -1,4 +1,5 @@
 import 'package:farmacare/constants/colors.dart';
+import 'package:farmacare/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class AreaListView extends StatefulWidget {
@@ -15,7 +16,7 @@ class AreaListView extends StatefulWidget {
 class _AreaListViewState extends State<AreaListView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  List<String> areaListData = <String>[
+  List<String> menuIcon = <String>[
     'assets/icons/ic_drugs.png',
     'assets/icons/ic_wiki.png',
     'assets/icons/ic_assistant.png',
@@ -25,7 +26,7 @@ class _AreaListViewState extends State<AreaListView>
     'assets/icons/ic_feedback.png',
   ];
 
-  List<String> areaNameData = <String>[
+  List<String> menuSubtitle = <String>[
     'Drugs',
     'Wiki',
     'Assistant',
@@ -33,6 +34,16 @@ class _AreaListViewState extends State<AreaListView>
     'Appointment',
     'Community',
     'Feedback',
+  ];
+
+  List<String> menuRoutes = <String>[
+    Routes.drugs,
+    Routes.wiki,
+    Routes.assistant,
+    Routes.delivery,
+    Routes.appointment,
+    Routes.community,
+    Routes.feedback,
   ];
 
   @override
@@ -68,9 +79,9 @@ class _AreaListViewState extends State<AreaListView>
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   children: List<Widget>.generate(
-                    areaListData.length,
+                    menuIcon.length,
                     (int index) {
-                      final int count = areaListData.length;
+                      final int count = menuIcon.length;
                       final Animation<double> animation =
                           Tween<double>(begin: 0.0, end: 1.0).animate(
                         CurvedAnimation(
@@ -81,8 +92,9 @@ class _AreaListViewState extends State<AreaListView>
                       );
                       animationController?.forward();
                       return AreaView(
-                        imagepath: areaListData[index],
-                        label: areaNameData[index],
+                        imagepath: menuIcon[index],
+                        label: menuSubtitle[index],
+                        route: menuRoutes[index],
                         animation: animation,
                         animationController: animationController!,
                       );
@@ -109,12 +121,14 @@ class AreaView extends StatelessWidget {
     Key? key,
     this.imagepath,
     this.label,
+    this.route,
     this.animationController,
     this.animation,
   }) : super(key: key);
 
   final String? imagepath;
   final String? label;
+  final String? route;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -152,8 +166,7 @@ class AreaView extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                       splashColor: AppColors.nearlyDarkBlue.withOpacity(0.2),
                       onTap: () {
-                        // TODO: Add navigation
-                        print('AreaView');
+                        Navigator.pushNamed(context, route!);
                       },
                       child: Column(
                         children: <Widget>[
@@ -162,16 +175,6 @@ class AreaView extends StatelessWidget {
                                 const EdgeInsets.only(top: 16, left: 16, right: 16),
                             child: Image.asset(imagepath!),
                           ),
-                          // Text(
-                          //   'Area',
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(
-                          //     fontWeight: FontWeight.w600,
-                          //     fontSize: 12,
-                          //     letterSpacing: 0.27,
-                          //     color: AppColors.nearlyDarkBlue,
-                          //   ),
-                          // )
                         ],
                       ),
                     ),
