@@ -1,4 +1,6 @@
+import 'package:farmacare/models/doctor/doctor.dart';
 import 'package:farmacare/ui/appointment/appointment.dart';
+import 'package:farmacare/ui/appointment/detail.dart';
 import 'package:farmacare/ui/assistant/assistant.dart';
 import 'package:farmacare/ui/community/community.dart';
 import 'package:farmacare/ui/delivery/delivery.dart';
@@ -47,6 +49,7 @@ class Routes {
   static const String assistant = '/assistant';
   static const String delivery = '/delivery';
   static const String appointment = '/appointment';
+  static const String doctorDetail = '/appointment/detail';
   static const String community = '/community';
   static const String feedback = '/feedback';
 
@@ -69,6 +72,10 @@ class Routes {
     assistant: (BuildContext context) => AssistantScreen(),
     delivery: (BuildContext context) => DeliveryScreen(),
     appointment: (BuildContext context) => AppointmentScreen(),
+    doctorDetail: (BuildContext context) {
+      final DoctorModel doctorModel = ModalRoute.of(context)!.settings.arguments as DoctorModel;
+      return DoctorDetailScreen(model: doctorModel);
+    },
     community: (BuildContext context) => CommunityScreen(),
     feedback: (BuildContext context) => FeedbackScreen(),
     // reply: (BuildContext context) => ReplyApp(),
