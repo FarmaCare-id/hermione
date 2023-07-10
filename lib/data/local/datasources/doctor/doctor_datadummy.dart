@@ -7,7 +7,7 @@ final doctorMapList = [
     "totalScore": 93.2,
     "satisfaction": 85.2,
     "isfavourite": true,
-    "image":"assets/doctor.png",
+    "image":"assets/images/doctor.png",
     "description": "A doctor can be found in several settings, including public health organization, group practices and  hospitals They have some of the most diverse and challenging careears available and part of a universally well-respected profession",
   },
   {
@@ -18,7 +18,7 @@ final doctorMapList = [
     "totalScore": 72.2,
     "satisfaction": 89.2,
     "isfavourite": false,
-    "image":"assets/doctor_4.png",
+    "image":"assets/images/doctor_4.png",
     "description": "A doctor can be found in several settings, including public health organization, group practices and  hospitals They have some of the most diverse and challenging careears available and part of a universally well-respected profession",
   },
   {
@@ -29,7 +29,7 @@ final doctorMapList = [
     "totalScore": 93.94,
     "satisfaction": 78.2,
     "isfavourite": false,
-    "image":"assets/doctor_3.png",
+    "image":"assets/images/doctor_3.png",
     "description": "A doctor can be found in several settings, including public health organization, group practices and  hospitals They have some of the most diverse and challenging careears available and part of a universally well-respected profession",
   },
   {
@@ -40,7 +40,7 @@ final doctorMapList = [
     "totalScore": 75.2,
     "satisfaction": 84.2,
     "isfavourite": true,
-    "image":"assets/doctor_1.png",
+    "image":"assets/images/doctor_1.png",
     "description": "A doctor can be found in several settings, including public health organization, group practices and  hospitals They have some of the most diverse and challenging careears available and part of a universally well-respected profession",
   }
 ];
