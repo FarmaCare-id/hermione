@@ -246,7 +246,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text("Top Doctors", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black800)),
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Text("Top Doctors", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.black800)),
+              ),
               IconButton(
                   icon: Icon(
                     Icons.sort,
