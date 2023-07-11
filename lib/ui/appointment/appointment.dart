@@ -25,7 +25,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   PreferredSizeWidget _appBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       leading: Icon(
         Icons.short_text,
         size: 30,
@@ -43,7 +43,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             // height: 40,
             // width: 40,
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
             ),
             child: Image.asset(
               'assets/images/userImage.png', fit: BoxFit.fill,),
