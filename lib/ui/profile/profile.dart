@@ -1,6 +1,7 @@
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
 import 'package:farmacare/ui/profile/edit_profile.dart';
+import 'package:farmacare/utils/device/device_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Stack(
       children: <Widget>[
         Container(
-          height: 300,
+          height: DeviceUtils.getScaledHeight(context, 0.3),
           decoration: BoxDecoration(
             color: AppColors.bluePeriwinkle,
             borderRadius: BorderRadius.only(
@@ -54,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 50),
-          margin: EdgeInsets.only(top: 230),
+          margin: EdgeInsets.only(top: DeviceUtils.getScaledHeight(context, 0.18)),
           child: _buildCard(context),
         ),
       ],
@@ -68,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20), 
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
