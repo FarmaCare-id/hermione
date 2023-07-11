@@ -6,7 +6,7 @@ import 'package:farmacare/ui/community/community.dart';
 import 'package:farmacare/ui/delivery/delivery.dart';
 import 'package:farmacare/ui/drugs/drugs.dart';
 import 'package:farmacare/ui/feedback/feedback.dart';
-import 'package:farmacare/ui/home/home.dart';
+import 'package:farmacare/ui/home/zzHome.dart';
 import 'package:farmacare/ui/home/navigation_home_screen.dart';
 import 'package:farmacare/ui/login/login.dart';
 import 'package:farmacare/ui/register/register.dart';

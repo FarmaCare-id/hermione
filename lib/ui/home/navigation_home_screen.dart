@@ -1,5 +1,5 @@
 import 'package:farmacare/constants/colors.dart';
-import 'package:farmacare/ui/home/training/fitness.dart';
+import 'package:farmacare/ui/home/home.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/custom_drawer/home_drawer.dart';
 import '../../widgets/custom_drawer/drawer_user_controller.dart';
@@ -19,7 +19,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   @override
   void initState() {
     drawerIndex = DrawerIndex.HOME;
-    screenView = FitnessAppHomeScreen();
+    screenView = HomeScreen();
     super.initState();
   }
 
@@ -53,7 +53,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       switch (drawerIndex) {
         case DrawerIndex.HOME:
           setState(() {
-            screenView = FitnessAppHomeScreen();
+            screenView = HomeScreen();
           });
           break;
         case DrawerIndex.Help:

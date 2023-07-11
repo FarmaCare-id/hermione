@@ -2,18 +2,18 @@ import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class AreaListView extends StatefulWidget {
-  const AreaListView(
+class MenuListView extends StatefulWidget {
+  const MenuListView(
       {Key? key, this.mainScreenAnimationController, this.mainScreenAnimation})
       : super(key: key);
 
   final AnimationController? mainScreenAnimationController;
   final Animation<double>? mainScreenAnimation;
   @override
-  _AreaListViewState createState() => _AreaListViewState();
+  MenuListViewState createState() => MenuListViewState();
 }
 
-class _AreaListViewState extends State<AreaListView>
+class MenuListViewState extends State<MenuListView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
   List<String> menuIcon = <String>[

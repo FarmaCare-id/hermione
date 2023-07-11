@@ -1,9 +1,9 @@
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
 import 'package:provider/provider.dart';
-import 'area_list_view.dart';
+import 'menu_list_view.dart';
 import 'title_view.dart';
-import 'workout_view.dart';
+import 'news_view.dart';
 import 'package:flutter/material.dart';
 
 class TrainingScreen extends StatefulWidget {
@@ -114,7 +114,7 @@ class _TrainingScreenState extends State<TrainingScreen>
     );
 
     listViews.add(
-      AreaListView(
+      MenuListView(
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
