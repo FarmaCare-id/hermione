@@ -44,7 +44,7 @@ class RegisterApi {
     String email,
     String password,
     String fullname,
-    String no_sip,
+    String noSip,
   ) async {
     try {
       String url = Endpoints.registerDoctor;
@@ -52,7 +52,7 @@ class RegisterApi {
         'email': email,
         'password': password,
         'name': fullname,
-        'no_sip': no_sip,
+        'no_sip': noSip,
       });
 
       if (res['status'] == 'SUCCESS') {
@@ -78,7 +78,7 @@ class RegisterApi {
     String email,
     String password,
     String fullname,
-    String no_sipa,
+    String noSipa,
   ) async {
     try {
       String url = Endpoints.register;
@@ -86,7 +86,7 @@ class RegisterApi {
         'email': email,
         'password': password,
         'fullname': fullname,
-        'no_sipa': no_sipa,
+        'no_sipa': noSipa,
       });
 
       if (res['status'] == 'SUCCESS') {
