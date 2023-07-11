@@ -233,10 +233,10 @@ class _TrainingScreenState extends State<TrainingScreen>
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(32.0),
                                   ),
-                                  child: Container(
-                                      color: AppColors.bluePeriwinkle,
-                                      child: Image.asset(
-                                          'assets/images/userImage.png')),
+                                  // child: Container(
+                                  //     color: AppColors.bluePeriwinkle,
+                                  //     child: Image.asset(
+                                  //         'assets/images/userImage.png')),
                                 ),
                               ),
                             ),
