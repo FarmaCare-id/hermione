@@ -1,15 +1,14 @@
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/stores/user/user_store.dart';
-import 'package:farmacare/ui/profile/edit_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatefulWidget {
+class EditProfileScreen extends StatefulWidget {
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
   //stores:---------------------------------------------------------------------
   late UserStore _userStore;
 
@@ -29,11 +28,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.orange400,
       appBar: AppBar(
-        backgroundColor: AppColors.bluePeriwinkle,
+        backgroundColor: AppColors.orange400,
       ),
       body: _buildBody(),
+      // backgroundColor: AppColors.orange400,
     );
   }
 
@@ -44,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Container(
           height: 300,
           decoration: BoxDecoration(
-            color: AppColors.bluePeriwinkle,
+            color: AppColors.orange400,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
@@ -214,12 +213,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       margin: EdgeInsets.only(top: 20),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => EditProfileScreen(),
-            ),
-          );
+          // // Navigator.push(
+          // //   context,
+          // //   MaterialPageRoute(
+          // //     builder: (context) => HomeScreen(),
+          // //   ),
+          // );
         },
         child: Text(
           'Edit Profile',
