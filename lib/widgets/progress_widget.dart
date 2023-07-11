@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/utils/device/device_utils.dart';
