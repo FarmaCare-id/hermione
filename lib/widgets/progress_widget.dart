@@ -43,13 +43,13 @@ class _ProgressWidgetState extends State<ProgressWidget>
   @override
   Widget build(BuildContext context) {
     final dimenstion = (DeviceUtils.getScaledWidth(context, 1) - 10) * .3;
-    if (activeColor == null) {
-      activeColor = Theme.of(context).primaryColor;
-    }
-    if (backgroundColor == null) {
-      backgroundColor = Theme.of(context).disabledColor;
-    }
-    final inCurve = ElasticOutCurve(0.38);
+    // if (activeColor == null) {
+    //   activeColor = Theme.of(context).primaryColor;
+    // }
+    // if (backgroundColor == null) {
+    //   backgroundColor = Theme.of(context).disabledColor;
+    // }
+    // final inCurve = ElasticOutCurve(0.38);
     return Container(
       height: dimenstion,
       width: dimenstion,
