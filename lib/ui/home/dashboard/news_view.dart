@@ -1,5 +1,6 @@
 import 'package:farmacare/constants/colors.dart';
 import 'package:farmacare/main.dart';
+import 'package:farmacare/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutView extends StatelessWidget {
@@ -24,10 +25,10 @@ class WorkoutView extends StatelessWidget {
                   left: 24, right: 24, top: 16, bottom: 18),
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    AppColors.nearlyDarkBlue,
-                    HexColor("#6F56E8")
-                  ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                  gradient: LinearGradient(
+                      colors: [AppColors.nearlyDarkBlue, HexColor("#6F56E8")],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(8.0),
                       bottomLeft: Radius.circular(8.0),
@@ -117,13 +118,18 @@ class WorkoutView extends StatelessWidget {
                                       blurRadius: 8.0),
                                 ],
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(0.0),
-                                child: Icon(
-                                  Icons.read_more,
-                                  color: HexColor("#6F56E8"),
-                                  size: 44,
+                              child: InkWell(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(0.0),
+                                  child: Icon(
+                                    Icons.read_more,
+                                    color: HexColor("#6F56E8"),
+                                    size: 44,
+                                  ),
                                 ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, Routes.news);
+                                },
                               ),
                             )
                           ],

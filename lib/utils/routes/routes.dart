@@ -6,6 +6,7 @@ import 'package:farmacare/ui/community/community.dart';
 import 'package:farmacare/ui/delivery/delivery.dart';
 import 'package:farmacare/ui/drugs/drugs.dart';
 import 'package:farmacare/ui/feedback/feedback.dart';
+import 'package:farmacare/ui/news/news.dart';
 import 'package:farmacare/ui/home/zzHome.dart';
 import 'package:farmacare/ui/home/navigation_home_screen.dart';
 import 'package:farmacare/ui/login/login.dart';
@@ -52,6 +53,7 @@ class Routes {
   static const String doctorDetail = '/appointment/detail';
   static const String community = '/community';
   static const String feedback = '/feedback';
+  static const String news = '/news';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -78,6 +80,7 @@ class Routes {
     },
     community: (BuildContext context) => CommunityScreen(),
     feedback: (BuildContext context) => FeedbackScreen(),
+    news: (BuildContext context) => NewsScreen(),
     // reply: (BuildContext context) => ReplyApp(),
     // replyHome: (BuildContext context) => ReplyPage(),
   };
