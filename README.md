@@ -29,8 +29,12 @@ Created in flutter using MobX and Provider.
 
 ### Appointment
 
-<img src="./assets/screenshots/appointment.png" alt="appointment" width="300" /> 
-<img src="./assets/screenshots/appointment_detail.png" alt="appointment detail" width="300" /> 
+<!-- <img src="./assets/screenshots/appointment.png" alt="appointment" width="300" /> 
+<img src="./assets/screenshots/appointment_detail.png" alt="appointment detail" width="300" />  -->
+
+Appointment       | Appointment Detail
+:-------------------------:|:-------------------------:
+![appointment](./assets/screenshots/appointment.png)  |  ![appointment detail](./assets/screenshots/appointment_detail.png)
 
 ### Feedback
 
