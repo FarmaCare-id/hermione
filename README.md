@@ -12,7 +12,7 @@ Created in flutter using MobX and Provider.
 
 ### Sign Up
 
-![signup1](./assets/screenshots/signup1.png)
+![signup1](./assets/screenshots/signup1.png | height=100)
 ![signup2](./assets/screenshots/signup2.png)
 ![signup3](./assets/screenshots/signup3.png)
 ![signup4](./assets/screenshots/signup4.png)
