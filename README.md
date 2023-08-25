@@ -8,42 +8,41 @@ Created in flutter using MobX and Provider.
 
 ### Sign In
 
-![signin](./assets/screenshots/signin.png)
+<img src="./assets/screenshots/signin.png" alt="sign in page" width="300" /> 
 
 ### Sign Up
 
-<img src="./assets/screenshots/signup1.png" alt="first page signup" width="300" />  
-![signup1](./assets/screenshots/signup1.png | height=100)
-![signup2](./assets/screenshots/signup2.png)
-![signup3](./assets/screenshots/signup3.png)
-![signup4](./assets/screenshots/signup4.png)
-![signup5](./assets/screenshots/signup5.png)
-![signup_confirmation](./assets/screenshots/signup_confirmation.png)
+<img src="./assets/screenshots/signup1.png" alt="first page signup" width="300" /> 
+<img src="./assets/screenshots/signup2.png" alt="second page signup" width="300" />  
+<img src="./assets/screenshots/signup3.png" alt="third page signup" width="300" /> 
+<img src="./assets/screenshots/signup4.png" alt="fourth page signup" width="300" /> 
+<img src="./assets/screenshots/signup5.png" alt="fifth page signup" width="300" /> 
+<img src="./assets/screenshots/signup_confirmation.png" alt="signup confirm" width="300" /> 
 
 ### Dashboard
 
-![dashboard](./assets/screenshots/dashboard.png)
+<img src="./assets/screenshots/dashboard.png" alt="first page signup" width="300" /> 
 
 ### Profile
 
-![profile](./assets/screenshots/profile.png)
+<img src="./assets/screenshots/profile.png" alt="profile" width="300" /> 
 
 ### Appointment
 
-![appointment](./assets/screenshots/appointment.png)
-![appointment_detail](./assets/screenshots/appointment_detail.png)
+<img src="./assets/screenshots/appointment.png" alt="appointment" width="300" /> 
+<img src="./assets/screenshots/appointment_detail.png" alt="appointment detail" width="300" /> 
 
 ### Feedback
 
-![feedback](./assets/screenshots/feedback.png)
+<img src="./assets/screenshots/feedback.png" alt="feedback" width="300" /> 
 
 ### Help
 
-![help](./assets/screenshots/help.png)
+<img src="./assets/screenshots/help.png" alt="help" width="300" />
 
 ### Invite
 
-![invite](./assets/screenshots/invite.png)
+<img src="./assets/screenshots/invite.png" alt="invite" width="300" />
 
 ## How to Use
 
