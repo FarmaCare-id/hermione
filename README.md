@@ -4,21 +4,61 @@ Created in flutter using MobX and Provider.
 
 ## Getting Started
 
-## How to Use 
+## Screenshots
+
+### Sign In
+
+![signin](./assets/screenshots/signin.png)
+
+### Sign Up
+
+![signup1](./assets/screenshots/signup1.png)
+![signup2](./assets/screenshots/signup2.png)
+![signup3](./assets/screenshots/signup3.png)
+![signup4](./assets/screenshots/signup4.png)
+![signup5](./assets/screenshots/signup5.png)
+![signup_confirmation](./assets/screenshots/signup_confirmation.png)
+
+### Dashboard
+
+![dashboard](./assets/screenshots/dashboard.png)
+
+### Profile
+
+![profile](./assets/screenshots/profile.png)
+
+### Appointment
+
+![appointment](./assets/screenshots/appointment.png)
+![appointment_detail](./assets/screenshots/appointment_detail.png)
+
+### Feedback
+
+![feedback](./assets/screenshots/feedback.png)
+
+### Help
+
+![help](./assets/screenshots/help.png)
+
+### Invite
+
+![invite](./assets/screenshots/invite.png)
+
+## How to Use
 
 **Step 1:**
 
 Download or clone this repo by using the link below:
 
-```
-https://github.com/FarmaCare-id/hermione.git
+```link
+https://gitlab.com/vicky-m/hermione.git
 ```
 
 **Step 2:**
 
-Go to project root and execute the following command in console to get the required dependencies: 
+Go to project root and execute the following command in console to get the required dependencies:
 
-```
+```dart
 flutter pub get 
 ```
 
@@ -26,13 +66,13 @@ flutter pub get
 
 This project uses `inject` library that works with code generation, execute the following command to generate files:
 
-```
+```dart
 flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
 
 or watch command in order to keep the source code synced automatically:
 
-```
+```dart
 flutter packages pub run build_runner watch
 ```
 
@@ -40,18 +80,19 @@ flutter packages pub run build_runner watch
 
 In-order to hide generated files, navigate to `Android Studio` -> `Preferences` -> `Editor` -> `File Types` and paste the below lines under `ignore files and folders` section:
 
-```
+```dart
 *.inject.summary;*.inject.dart;*.g.dart;
 ```
 
 In Visual Studio Code, navigate to `Preferences` -> `Settings` and search for `Files:Exclude`. Add the following patterns:
-```
+
+```dart
 **/*.inject.summary
 **/*.inject.dart
 **/*.g.dart
 ```
 
-## Boilerplate Features:
+## Boilerplate Features
 
 * Splash
 * Login
@@ -86,9 +127,10 @@ In Visual Studio Code, navigate to `Preferences` -> `Settings` and search for `F
 * [Dependency Injection](https://github.com/fluttercommunity/get_it)
 
 ### Folder Structure
+
 Here is the core folder structure which flutter provides.
 
-```
+```text
 flutter-app/
 |- android
 |- build
@@ -99,7 +141,7 @@ flutter-app/
 
 Here is the folder structure we have been using in this project
 
-```
+```text
 lib/
 |- constants/
 |- data/
@@ -113,7 +155,7 @@ lib/
 
 Now, lets dive into the lib folder which has the main code for the application.
 
-```
+```text
 1- constants - All the application level constants are defined in this directory with-in their respective files. This directory contains the constants for `theme`, `dimentions`, `api endpoints`, `preferences` and `strings`.
 2- data - Contains the data layer of your project, includes directories for local, network and shared pref/cache.
 3- stores - Contains store(s) for state-management of your application, to connect the reactive data of your application with the UI. 
@@ -128,7 +170,7 @@ Now, lets dive into the lib folder which has the main code for the application.
 
 This directory contains all the application level constants. A separate file is created for each type as shown in example below:
 
-```
+```text
 constants/
 |- app_theme.dart
 |- dimens.dart
@@ -141,7 +183,7 @@ constants/
 
 All the business logic of the application will go into this directory, it represents the data layer of the application. It is sub-divided into three directories `local`, `network` and `sharedperf`, each containing the domain specific logic. Since each layer exists independently, that makes it easier to unit test. The communication between UI and data layer is handled by using central repository.
 
-```
+```text
 data/
 |- local/
     |- constants/
@@ -165,7 +207,7 @@ data/
 
 The store is where all the application state lives in flutter. The Store is basically a widget that stands at the top of the widget tree and passes it's data down using special methods. In-case of multiple stores, a separate folder for each store is created as shown in the example below:
 
-```
+```text
 stores/
 |- login/
     |- login_store.dart
@@ -176,7 +218,7 @@ stores/
 
 This directory contains all the ui of the application. Each screen is located in a separate folder making it easy to combine group of files related to that particular screen. All the screen specific widgets will be placed in `widgets` directory as shown in the example below:
 
-```
+```text
 ui/
 |- login
    |- login_screen.dart
@@ -187,9 +229,9 @@ ui/
 
 ### Utils
 
-Contains the common file(s) and utilities used in a project. The folder structure is as follows: 
+Contains the common file(s) and utilities used in a project. The folder structure is as follows:
 
-```
+```text
 utils/
 |- encryption
    |- xxtea.dart
@@ -201,7 +243,7 @@ utils/
 
 Contains the common widgets that are shared across multiple screens. For example, Button, TextField etc.
 
-```
+```text
 widgets/
 |- app_icon_widget.dart
 |- empty_app_bar.dart
